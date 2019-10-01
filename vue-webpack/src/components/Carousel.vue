@@ -1,8 +1,6 @@
 <template>
   <div>
-    <div>{{ slide }}</div>
-    <div>{{ sliding }}</div>
-    <div ref="mathjax"> <math ><mfrac><mn>1</mn><mn>2</mn></mfrac><plus/>2</math></div>
+    <div>Current Slide: {{ slide }}</div>
     <div id="carouselExampleControls" class="carousel" data-interval="false">
       <div class="carousel-inner">
         <div
@@ -11,9 +9,9 @@
           v-bind:class="{'active': idx == 0, 'carousel-item': true}"
         >
         <p>{{ change.type }}</p>
-          <div v-if="change.single == true ">
+          <div v-if="change.single">
 
-            <div v-if="change.math == true">
+            <div v-if="change.math">
               
               <div> handle math</div>
               <div ref="mathJax" v-html="change.xmlSnippet">
@@ -27,7 +25,7 @@
           </div>
           <div v-else>
              
-            <div v-if="change.math == true">
+            <div v-if="change.math">
               <!-- handle math -->
               <div ref="mathJax" v-html="change.xmlSnippetA"></div>
               <div ref="mathJax" v-html="change.xmlSnippetB"></div>
@@ -135,7 +133,7 @@ export default {
 
     },
 
-    computeSlideElement: function(lastNoNamespace, changePath, type, sbmlDoc){
+    computeSlideElement: function(changePath, type, sbmlDoc){         //lastNoNamespace, 
           // get Element deping on weather it is a delete or insert
           var noNamespace;
             noNamespace = this.getLocalXPath(changePath);
@@ -161,8 +159,10 @@ export default {
 
           // Did the XPath change?
           // .evaluate will not reset if the same xpath is used
-          if (lastNoNamespace != noNamespace) { //always true for the first one
-            lastNoNamespace = noNamespace;
+              //it probably will in a function like this!?
+
+//          if (lastNoNamespace != noNamespace) { //always true for the first one
+//            lastNoNamespace = noNamespace;
 
             xPathR = sbmlDoc.evaluate(
               noNamespace,
@@ -174,7 +174,7 @@ export default {
 
             //get element from Xpath Result. Has to be interated although it is only one result
             xmlSnippet = xPathR.iterateNext();
-          }
+//          }
 
           //convert math
           if (mathFlag) {
@@ -197,7 +197,7 @@ export default {
             xmlSnippet = xmlSnippet.outerHTML;
           }
 
-          return {single: true, type: type, decision: -1, math: mathFlag, xmlSnippet: xmlSnippet};
+          return {single: true, type: type, decision: -1, math: mathFlag, xmlSnippet: xmlSnippet}; //, lastNoNamespace: lastNoNamespace};
 
 
     },
@@ -214,9 +214,16 @@ export default {
           } else {
             changePath = change.attributes.newPath.value;
           }
-          var slideElement = this.computeSlideElement(lastNoNamespace, changePath, type, sbmlDoc);
-          this.changes.push(slideElement);
+          var slideElement = this.computeSlideElement(changePath, type, sbmlDoc);   //lastNoNamespace, 
+          this.changes.push({
+             single: true,
+             type: type,
+             decision: -1,
+             math: slideElement.math,
+             xmlSnippet: slideElement.xmlSnippet
+           });
           this.slideNum++;
+          //lastNoNamespace = slideElement.lastNoNamespace;
         }
         change = xPathResult.iterateNext();
       }
@@ -228,12 +235,13 @@ export default {
 
     addChangesChoice: function(xPathResult, type, sbmlDocOld, sbmlDocNew) {
         var change = xPathResult.iterateNext();
-        var lastNoNamespace = "";
+       // var lastNoNamespace = "";
        while (change != null) {
          if (!change.attributes.triggeredBy) {
-          var slideElementA = this.computeSlideElement(lastNoNamespace, change.attributes.oldPath.value, type, sbmlDocOld);
+          var slideElementA = this.computeSlideElement(change.attributes.oldPath.value, type, sbmlDocOld); //lastNoNamespace, 
 
-          var slideElementB = this.computeSlideElement(lastNoNamespace, change.attributes.newPath.value, type, sbmlDocNew);
+          var slideElementB = this.computeSlideElement(change.attributes.newPath.value, type, sbmlDocNew); //lastNoNamespace, 
+
 
            this.changes.push({
              single: false,
@@ -244,6 +252,7 @@ export default {
              xmlSnippetB: slideElementB.xmlSnippet
            });
            this.slideNum++;
+          // lastNoNamespace = slideElementA.lastNoNamespace;
          }
 
          change = xPathResult.iterateNext();
@@ -255,7 +264,6 @@ export default {
     getLocalXPath: function(path) {
       var pathArray;
       var returnPath = "";
-     alert(path);
 
       path = path.substr(1);
       pathArray = path.split("/");
@@ -366,39 +374,8 @@ export default {
                     });
 
                     this.$refs.mathJax.forEach((block, id) => {
-
-
-                      MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
-                          //  do something with the error.  message[2] is the Error object that records the problem.
-                          console.log("?????????????????????????", message);
-                      });
-                      // var xsltProc = new XSLTProcessor();
-                      // xsltProc.importStylesheet(xsl.data.activeElement);
-                      //console.log(block.firstChild);
-                      // console.log(xsl);
-                      // var transformed = xsltProc.transformToFragment(block, document);
-                      // //block.parentElement.appendChild(transformed);
-                      // console.log(transformed);
-//alert();
-                      //resultDocument = xsltProcessor.transformToFragment(xml, document);
-                      //document.getElementById("example").appendChild(resultDocument);
-
-                      //console.log(block);
-                      //add mathjax handler here
-                      //console.log(this.$mathjax);
-                      MathJax.Hub.Register.StartupHook("End",function () {                      
-                      });
-                      
-                      //this.$mathjax.typeset();
-                                            MathJax.Hub.Queue(["Typeset", MathJax.Hub, block]);
-
-
-                     
-                    
+                      MathJax.Hub.Queue(["Typeset", MathJax.Hub, block]);
                   });
-                 //this.$nextTick(() => {
-                 //  this.$refs.mathJax.forEach(() => {console.log("asdasd");});
-                 //});
                  });
                 });
           });

@@ -6,19 +6,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import Carousel from './components/Carousel.vue'
 import Selection from './components/Selection.vue'
 
-
-
-
-
-
-
-
-MathJax.Hub.Register.StartupHook("End",function () { alert(); 
-
-
-
-});
-
 import mathjax from 'mathjax';
 
 

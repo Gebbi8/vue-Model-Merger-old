@@ -105,7 +105,6 @@ export default {
 
   methods: {
     btnKeep: function() {
-      console.log(this.slide, this.changes);
       this.changes[this.slide].decision = 0;
     },
     btnDiscard: function() {
@@ -118,10 +117,8 @@ export default {
       this.changes[this.slide].decision = 1;
     },
     downloadSBML: function() {
-      /////////////// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            //works always with the second document as main
+      //works always with the second document as main
       //use .ownerDocument to get doc. best from newDoc
-      console.log(this.newDoc);
 
       //do all operations use: removeChild and replace... see w3...
       //iterate through decision array
@@ -161,7 +158,6 @@ export default {
           this.changes[i].decision == 0
         ) {
           // delete moved node from document and insert the old node
-          console.log("replaceIt!!!!!!!!!!!!!!");
           this.changes[i].xmlSnippetB.parentNode.replaceChild(
             this.changes[i].xmlSnippetA,
             this.changes[i].xmlSnippetB
@@ -236,7 +232,6 @@ export default {
 
     updateBtns: function(type, decision) {
       //hide and show relevant buttons
-      console.log(type, decision);
 
         this.keepActive = false;
         this.discardActive = false;
@@ -276,7 +271,6 @@ export default {
         //update progressbar
         this.$refs.progressBar.style.width = barPercent + "%";
         //enable button
-        console.log(disable);
         this.disabledDownload = disable;
       },
       deep: true
@@ -292,7 +286,6 @@ export default {
     },
     newDoc: {
       handler: function(){
-        console.log("This is the 'newer' Document:", this.newDoc);
       },
       deep: true
     }
