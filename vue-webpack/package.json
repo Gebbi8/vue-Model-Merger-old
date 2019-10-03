@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
+    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules && cp index.html dist/index.html && cp -r node_modules/mathjax/config/* dist/extensions/ && cp -r src/xslt/ctop2.xsl dist/src/xslt/ctop2.xsl && cp -r /bives/bives.php dist/bives/bives.php"
   },
   "dependencies": {
     "axios": "^0.18.0",

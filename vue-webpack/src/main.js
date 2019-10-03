@@ -10,7 +10,7 @@ import mathjax from 'mathjax';
 
 
 MathJax.Hub.Config({
-  root: "/node_modules/mathjax",
+  root: "extensions/",
   showProcessingMessages: true,
   extensions: ["TeX-AMS-MML_HTMLorMML.js"]
 
@@ -18,7 +18,7 @@ MathJax.Hub.Config({
 
 MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
   //  do something with the error.  message[2] is the Error object that records the problem.
-  console.log("????????????????????????????????????????????", message);
+  console.log("Error", message);
 });
 
 MathJax.Hub.Startup.signal.Interest(

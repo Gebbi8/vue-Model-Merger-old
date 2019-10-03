@@ -4,7 +4,7 @@ var webpack = require('webpack')
 module.exports = {
   entry: './src/main.js',
   output: {
-    path: path.resolve(__dirname, './model-merger'),
+    path: path.resolve(__dirname, './dist'),
     //publicPath: '/dist/',
     publicPath: '',
     filename: 'build.js'
