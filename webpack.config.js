@@ -82,10 +82,11 @@ module.exports = {
     noInfo: true,
     overlay: true,
     proxy: {
-      '/bives/*': {
-        target: 'http://localhost:80',
+      '/bives/**': {
+        target: 'http://139.30.6.31:80/GitRepos/MOST/',
         changeOrigin: true,
-        secure: false
+        secure: false,
+        logLevel: 'debug' // logs to terminal
       }
     }
   },

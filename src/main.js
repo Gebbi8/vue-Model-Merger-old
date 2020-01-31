@@ -3,8 +3,13 @@ import App from './App.vue'
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
+import VueRouter from 'vue-router'
+Vue.use(VueRouter)
+
+
 import Carousel from './components/Carousel.vue'
 import Selection from './components/Selection.vue'
+import SimpleMerge from './components/SimpleMerge.vue'
 
 import mathjax from 'mathjax';
 
@@ -29,6 +34,18 @@ MathJax.Hub.signal.Interest(
 );
 
 
+//query params
+const routes = [
+  { path: '?jobID', component: SimpleMerge }
+]
+
+const router = new VueRouter({
+  routes // short for `routes: routes`
+})
+
+
+
+
 import hljs from 'highlight.js';
 
 
@@ -42,9 +59,12 @@ Object.defineProperty(Vue.prototype, '$hljs', { value: hljs });
 
 Vue.component('app-carousel', Carousel);
 Vue.component('app-selection', Selection);
+Vue.component('app-simpleMerge', SimpleMerge);
+
 
 Vue.config.productionTip = false
 
 new Vue({
+  router,
   render: h => h(App),
 }).$mount('#app')

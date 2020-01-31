@@ -73,9 +73,11 @@ export default {
       sliding: null,
       oldDoc: null,
       newDoc: null,
-      xsl: null
+      xsl: null,
+      job: this.$route.query.jobID
     };
   },
+  
 
   watch: {
     slide: {
@@ -281,49 +283,41 @@ export default {
     },
 
     loadData() {
+      var exampleFilePairs = [["https://scratch.binfalse.de/diss/version1.xml", "https://scratch.binfalse.de/diss/version2.xml"],
+                              ["http://most.sems.uni-rostock.de/resources/d3d3LmViaS5hYy51ay9iaW9tb2RlbHMtbWFpbi8=/L0JJT01EMDAwMDAwMDQ3NQ==/MjAxMy0xMS0wNA==", "http://most.sems.uni-rostock.de/resources/d3d3LmViaS5hYy51ay9iaW9tb2RlbHMtbWFpbi8=/L0JJT01EMDAwMDAwMDQ3NQ==/MjAxNC0wNC0xMQ=="],                             
+                              ["https://budhat.bio.informatik.uni-rostock.de/download?downloadModel=24", "https://budhat.bio.informatik.uni-rostock.de/download?downloadModel=25"],
+                              ["https://most.bio.informatik.uni-rostock.de/resources/ZGF0YS5iaW8uaW5mb3JtYXRpay51bmktcm9zdG9jay5kZS9CZW5jaG1hcmstTW9kZWxzL0JlbmNobWFyay1Nb2RlbHMv/L0Z1aml0YV9TY2lTaWduYWwyMDEw/bW9kZWwxX2RhdGExX2wydjQ=", "https://most.bio.informatik.uni-rostock.de/resources/ZGF0YS5iaW8uaW5mb3JtYXRpay51bmktcm9zdG9jay5kZS9CZW5jaG1hcmstTW9kZWxzL0JlbmNobWFyay1Nb2RlbHMv/L0Z1aml0YV9TY2lTaWduYWwyMDEw/bW9kZWwxX2RhdGEyX2wydjQ="],
+                              ["http://most.sems.uni-rostock.de/resources/d3d3LmViaS5hYy51ay9iaW9tb2RlbHMtbWFpbi8=/L0JJT01EMDAwMDAwMDA4NQ==/MjAwNy0wNi0wNQ==", "http://most.sems.uni-rostock.de/resources/d3d3LmViaS5hYy51ay9iaW9tb2RlbHMtbWFpbi8=/L0JJT01EMDAwMDAwMDA4NQ==/MjAwNy0wOS0yNQ=="],
+                              ["http://most.sems.uni-rostock.de/resources/bW9kZWxzLmNlbGxtbC5vcmcvd29ya3NwYWNlLzI0Yy8=/L2RpZnJhbmNlc2NvX25vYmxlXzE5ODUuY2VsbG1s/MzgzOGQxZDI2ZjRlMDY4ZTdlOGZmMDlhOWIxNDk4OWNlZGM1YzdlNw==", "http://most.sems.uni-rostock.de/resources/bW9kZWxzLmNlbGxtbC5vcmcvd29ya3NwYWNlLzI0Yy8=/L2RpZnJhbmNlc2NvX25vYmxlXzE5ODUuY2VsbG1s/NGViZWZjMzM0ZmRiYWE1NTAyMzE2MDczZWRiNDNhN2VmYTI4ZWYwNg=="],
+                              ["http://most.sems.uni-rostock.de/resources/d3d3LmViaS5hYy51ay9iaW9tb2RlbHMtbWFpbi8=/L0JJT01EMDAwMDAwMDA1MQ==/MjAwNy0wNi0wNQ==", "http://most.sems.uni-rostock.de/resources/d3d3LmViaS5hYy51ay9iaW9tb2RlbHMtbWFpbi8=/L0JJT01EMDAwMDAwMDA1MQ==/MjAwNy0wOS0yNQ=="],
+                              ["https://most.bio.informatik.uni-rostock.de/resources/ZGF0YS5iaW8uaW5mb3JtYXRpay51bmktcm9zdG9jay5kZS9CZW5jaG1hcmstTW9kZWxzL0JlbmNobWFyay1Nb2RlbHMv/L0JyYW5ubWFya19KQkMyMDEw/bW9kZWwxX2RhdGExX2wydjQ=", "https://most.bio.informatik.uni-rostock.de/resources/ZGF0YS5iaW8uaW5mb3JtYXRpay51bmktcm9zdG9jay5kZS9CZW5jaG1hcmstTW9kZWxzL0JlbmNobWFyay1Nb2RlbHMv/L0JyYW5ubWFya19KQkMyMDEw/bW9kZWwxX2RhdGEyX2wydjQ="],
+                              ["https://most.bio.informatik.uni-rostock.de/resources/ZGF0YS5iaW8uaW5mb3JtYXRpay51bmktcm9zdG9jay5kZS9CZW5jaG1hcmstTW9kZWxzL0JlbmNobWFyay1Nb2RlbHMv/L0JydW5vX0pFeHBCaW8yMDE2/bW9kZWwxX2RhdGE1X2wydjQ=", "https://most.bio.informatik.uni-rostock.de/resources/ZGF0YS5iaW8uaW5mb3JtYXRpay51bmktcm9zdG9jay5kZS9CZW5jaG1hcmstTW9kZWxzL0JlbmNobWFyay1Nb2RlbHMv/L0JydW5vX0pFeHBCaW8yMDE2/bW9kZWwxX2RhdGE2X2wydjQ="]
+                             ];
 
-      const axios = require("axios");
-      var file1 =  //"https://scratch.binfalse.de/diss/version1.xml";
-      //"http://most.sems.uni-rostock.de/resources/d3d3LmViaS5hYy51ay9iaW9tb2RlbHMtbWFpbi8=/L0JJT01EMDAwMDAwMDQ3NQ==/MjAxMy0xMS0wNA==";
-      //"https://budhat.bio.informatik.uni-rostock.de/download?downloadModel=24";
-      //"https://most.bio.informatik.uni-rostock.de/resources/ZGF0YS5iaW8uaW5mb3JtYXRpay51bmktcm9zdG9jay5kZS9CZW5jaG1hcmstTW9kZWxzL0JlbmNobWFyay1Nb2RlbHMv/L0Z1aml0YV9TY2lTaWduYWwyMDEw/bW9kZWwxX2RhdGExX2wydjQ=";
+      var currentExample = 0;
+      console.log(exampleFilePairs[currentExample][0]);
+      var file1 = exampleFilePairs[currentExample][0];
 
-      //two changes of each type
-      //"http://most.sems.uni-rostock.de/resources/d3d3LmViaS5hYy51ay9iaW9tb2RlbHMtbWFpbi8=/L0JJT01EMDAwMDAwMDA4NQ==/MjAwNy0wNi0wNQ==";
+      console.log(exampleFilePairs[currentExample][1]);
+      var file2 = exampleFilePairs[currentExample][1];
 
-      //small math example
-      "http://most.sems.uni-rostock.de/resources/bW9kZWxzLmNlbGxtbC5vcmcvd29ya3NwYWNlLzI0Yy8=/L2RpZnJhbmNlc2NvX25vYmxlXzE5ODUuY2VsbG1s/MzgzOGQxZDI2ZjRlMDY4ZTdlOGZmMDlhOWIxNDk4OWNlZGM1YzdlNw==";
+      if(this.job){
+        file1 =  "/srv/mergestorage/" + this.job + "/f1";
+        file2 =  "/srv/mergestorage/" + this.job + "/f2";
+      };
 
-      //math example
-      //"http://most.sems.uni-rostock.de/resources/d3d3LmViaS5hYy51ay9iaW9tb2RlbHMtbWFpbi8=/L0JJT01EMDAwMDAwMDA1MQ==/MjAwNy0wNi0wNQ=="
-      var file2 =  //"https://scratch.binfalse.de/diss/version2.xml";
-      //"http://most.sems.uni-rostock.de/resources/d3d3LmViaS5hYy51ay9iaW9tb2RlbHMtbWFpbi8=/L0JJT01EMDAwMDAwMDQ3NQ==/MjAxNC0wNC0xMQ==";
-      //"https://budhat.bio.informatik.uni-rostock.de/download?downloadModel=25";
-       //"https://most.bio.informatik.uni-rostock.de/resources/ZGF0YS5iaW8uaW5mb3JtYXRpay51bmktcm9zdG9jay5kZS9CZW5jaG1hcmstTW9kZWxzL0JlbmNobWFyay1Nb2RlbHMv/L0Z1aml0YV9TY2lTaWduYWwyMDEw/bW9kZWwxX2RhdGEyX2wydjQ=";
+    console.log("file1: " + file1);
 
-
-      //two changes of each type;
-      //"http://most.sems.uni-rostock.de/resources/d3d3LmViaS5hYy51ay9iaW9tb2RlbHMtbWFpbi8=/L0JJT01EMDAwMDAwMDA4NQ==/MjAwNy0wOS0yNQ==";
-
-
-      //small math example
-      "http://most.sems.uni-rostock.de/resources/bW9kZWxzLmNlbGxtbC5vcmcvd29ya3NwYWNlLzI0Yy8=/L2RpZnJhbmNlc2NvX25vYmxlXzE5ODUuY2VsbG1s/NGViZWZjMzM0ZmRiYWE1NTAyMzE2MDczZWRiNDNhN2VmYTI4ZWYwNg==";
-
-       //math example
-       "http://most.sems.uni-rostock.de/resources/d3d3LmViaS5hYy51ay9iaW9tb2RlbHMtbWFpbi8=/L0JJT01EMDAwMDAwMDA1MQ==/MjAwNy0wOS0yNQ=="
-      
       // Make a request for a user with a given ID
       var bivesJob = {
         files: [file1, file2],
-        commands: ["xmlDiff"]
+        commands: ["xmlDiff"],
+        jobID: [this.job]
       };
-
-
-      //config mathjax
-
-
+      
+      const axios = require("axios");
       axios
-        .post("/bives/bives.php", "bivesJob=" + JSON.stringify(bivesJob))
+        .post("/bives/bives.php", "postParams=" + JSON.stringify(bivesJob))
         .then(response => {
           //get first doc
           axios({
@@ -339,6 +333,7 @@ export default {
             })
               .then(doc2 => {
                 // handle success
+                console.log(response)
                 var parser = new DOMParser();
                 var xmlDocDiff = parser.parseFromString(
                   response.data.xmlDiff,
@@ -382,8 +377,9 @@ export default {
         })
         .catch(function(error) {
           // handle error
-          alert("error");
           console.log(error);
+          alert("error");
+          
         })
         .then(function() {
           // always executed

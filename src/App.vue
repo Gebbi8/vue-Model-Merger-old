@@ -2,14 +2,18 @@
   <div id="app">
     <app-carousel :decArr="decisionArr" @arrChanged="decisionArr = $event" @slideChange="currentSlide = $event" @gotOldDoc="oldDocument = $event" @gotNewDoc="newDocument = $event"/> 
     <app-selection :decArr="decisionArr" :slideChng="currentSlide" :oldDoc="oldDocument" :newDoc="newDocument"/>
+    <app-simpleMerge></app-simpleMerge>
   </div>
 </template>
 
 <script>
 
 
+
+
 import Carousel from "./components/Carousel.vue";
 import Selection from "./components/Selection.vue";
+import SimpleMerge from "./components/SimpleMerge.vue";
 
 export default {
 
@@ -17,7 +21,8 @@ export default {
   name: "app",
   components: {
     Carousel,
-    Selection
+    Selection,
+    SimpleMerge
   },
   data() {
     return {
