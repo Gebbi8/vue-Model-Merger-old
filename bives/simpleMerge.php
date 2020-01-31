@@ -5,7 +5,10 @@ $f2 = $_FILES['file2'];
 $job = $_GET['jobID'];
 $getFile = $_GET['getFile'];
 
-if(preg_match('[^A-Za-z0-9]', $job) || !file_exists($storage . '/' . $job . '/' . $getFile) ) echo "SQUEEEEEEEEEEEEEEEEEEEEEL";
+
+
+	
+
 
 if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 	// save both to $storage
@@ -29,13 +32,10 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 		header("Content-Disposition: attachment; filename=mergedModel.xml");
 
 		$filename = $storage . '/' . $job . '/' . $getFile;
+
 		$openFile = fopen($filename, "r");
 		$readFile = fread($openFile, filesize($filename));
 		fclose($handle);
-
-
-
-
 
 		
 		echo $readFile;

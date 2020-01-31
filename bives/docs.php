@@ -9,10 +9,10 @@ if (!isset ($_GET["url"]) || empty ($_GET["url"]))
 
 
 if(substr( $_GET["url"], 0, 3 ) === "file"){
+
 	$local = fopen($_GET["url"], "r");
 	echo $local;
 } else {
-	echo $_GET["url"];
 
 	$ch = curl_init();
 

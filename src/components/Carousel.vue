@@ -295,18 +295,13 @@ export default {
                              ];
 
       var currentExample = 0;
-      console.log(exampleFilePairs[currentExample][0]);
       var file1 = exampleFilePairs[currentExample][0];
-
-      console.log(exampleFilePairs[currentExample][1]);
       var file2 = exampleFilePairs[currentExample][1];
 
       if(this.job){
         file1 =  "/srv/mergestorage/" + this.job + "/f1";
         file2 =  "/srv/mergestorage/" + this.job + "/f2";
       };
-
-    console.log("file1: " + file1);
 
       // Make a request for a user with a given ID
       var bivesJob = {
@@ -319,33 +314,44 @@ export default {
       axios
         .post("/bives/bives.php", "postParams=" + JSON.stringify(bivesJob))
         .then(response => {
+
+          
+          var phpUrl;
+          if(this.job){
+            phpUrl = "/bives/simpleMerge.php?jobID=" + this.job + "&getFile=f1";
+          } else  phpUrl = "/bives/docs.php?url=" + file1;
           //get first doc
           axios({
             method: "get",
-            url: "/bives/docs.php?" + "url=" + file1,
+            url: phpUrl,
             responseType: "text/xml"
           }).then(doc1 => {
             //get second doc
+            if(this.job){
+              phpUrl = "/bives/simpleMerge.php?jobID=" + this.job + "&getFile=f2";
+          } else  phpUrl = "/bives/docs.php?url=" + file2;
             axios({
               method: "get",
-              url: "/bives/docs.php?" + "url=" + file2,
+              url: phpUrl,
               responseType: "text/xml"
             })
               .then(doc2 => {
                 // handle success
-                console.log(response)
+                //console.log(response, doc1, doc2);
                 var parser = new DOMParser();
                 var xmlDocDiff = parser.parseFromString(
                   response.data.xmlDiff,
                   "text/xml"
                 );
+                console.log(doc1);
                 var xmlDoc1 = parser.parseFromString(doc1.data, "text/xml");
                 var xmlDoc2 = parser.parseFromString(doc2.data, "text/xml");
                 this.oldDoc = xmlDoc1;
                 this.newDoc = xmlDoc2;
-                //console.log(doc1.data);
-                //console.log(this.oldDoc);
+
+
                 this.computeChanges(xmlDocDiff,  this.oldDoc, this.newDoc);
+                console.log("check");
                 this.$root.$emit("gotOldDoc", this.oldDoc);
                 this.$root.$emit("gotNewDoc", this.newDoc);
                // console.log("Doc with the Diff:", xmlDocDiff);
