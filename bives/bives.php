@@ -1,12 +1,8 @@
 <?php
-#phpinfo();
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 ini_set('max_execution_time', 600);
 $BIVES="https://bives.bio.informatik.uni-rostock.de/";
-$DOCS="http://139.30.6.31:80/GitRepos/MOST/bives/simpleMerge.php";
+$DOCS="/simpleMerge.php";
 
 
 

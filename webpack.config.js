@@ -83,7 +83,7 @@ module.exports = {
     overlay: true,
     proxy: {
       '/bives/**': {
-        target: 'http://139.30.6.31:80/GitRepos/MOST/',
+        target: 'https://merge-proto.bio.informatik.uni-rostock.de',
         changeOrigin: true,
         secure: false,
         logLevel: 'debug' // logs to terminal

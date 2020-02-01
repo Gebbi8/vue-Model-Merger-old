@@ -1,68 +1,28 @@
 <template>
   <div id="app">
-    <app-carousel :decArr="decisionArr" @arrChanged="decisionArr = $event" @slideChange="currentSlide = $event" @gotOldDoc="oldDocument = $event" @gotNewDoc="newDocument = $event"/> 
-    <app-selection :decArr="decisionArr" :slideChng="currentSlide" :oldDoc="oldDocument" :newDoc="newDocument"/>
-    <app-simpleMerge></app-simpleMerge>
+    <button v-if="job" type="button" class="btn btn-primary btn-sm" v-on:click="btnSwitchView">Switch Mode</button>
+    <app-usermerge v-if="simple && job"></app-usermerge>
+    <app-simpleMerge v-else></app-simpleMerge>
   </div>
 </template>
 
 <script>
-
-
-
-
-import Carousel from "./components/Carousel.vue";
-import Selection from "./components/Selection.vue";
+import UserMerge from "./components/UserMerge.vue";
 import SimpleMerge from "./components/SimpleMerge.vue";
 
+
 export default {
-
-
   name: "app",
-  components: {
-    Carousel,
-    Selection,
-    SimpleMerge
-  },
   data() {
     return {
-      decisionArr: [],
-      currentSlide: 0,
-      oldDocument: null,
-      newDocument: null
+      simple: false,
+      job: this.$route.query.jobID
     }
   },
-  watch: {
-    currentSlide: {
-      handler: function(){
-      }
-    },
-    decisionArr: {
-      handler: function(){
-      }
-    },
-    newDocument: {
-      handler: function(){
-      }
+  methods:{
+    btnSwitchView: function(){
+      this.simple = !this.simple;
     }
-  },
-    mounted() {
-    this.$root.$on("arrChanged", data => {
-      this.decisionArr = data;
-      console.log(data)
-    });
-    this.$root.$on("slideChange", data => {
-      this.currentSlide = data;
-      console.log(data);
-    });
-    this.$root.$on("gotOldDoc", data => {
-      this.oldDocument = data;
-      console.log(data);
-    });
-    this.$root.$on("gotNewDoc", data => {
-      this.newDocument = data;
-      console.log(data);
-    });
   }
-};
+}
 </script>

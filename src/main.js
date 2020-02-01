@@ -7,9 +7,10 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 
+import UserMerge from './components/UserMerge.vue'
+import SimpleMerge from './components/SimpleMerge.vue'
 import Carousel from './components/Carousel.vue'
 import Selection from './components/Selection.vue'
-import SimpleMerge from './components/SimpleMerge.vue'
 
 import mathjax from 'mathjax';
 
@@ -57,6 +58,7 @@ Object.defineProperty(Vue.prototype, '$hljs', { value: hljs });
 
 
 
+Vue.component('app-usermerge', UserMerge);
 Vue.component('app-carousel', Carousel);
 Vue.component('app-selection', Selection);
 Vue.component('app-simpleMerge', SimpleMerge);
