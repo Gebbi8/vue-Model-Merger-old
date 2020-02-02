@@ -1,5 +1,5 @@
 <?php
-$storage = '/srv/mergestorage';
+$storage = '/tmp/mergestorage';
 $f1 = $_FILES['file1'];
 $f2 = $_FILES['file2'];
 $job = $_GET['jobID'];

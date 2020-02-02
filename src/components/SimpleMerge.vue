@@ -10,20 +10,18 @@
         <button
         v-if="!goBack"
         ref="downloadBtn"
-        v-on:click="downloadSBML"
+        v-on:click="download"
         type="button"
         class="btn btn-success btn-lg btn-block"
-        v-bind:class="{'disabled': disabledDownload}"
         >
             Download SBML
         </button>
          <button
         v-else
-        ref="downloadBtn"
-        v-on:click="downloadSBML"
+        ref="goBackBtn"
+        v-on:click="goBackToOrigin"
         type="button"
         class="btn btn-success btn-lg btn-block"
-        v-bind:class="{'disabled': disabledDownload}"
         >
             Return to Starting Page
         </button>
@@ -52,6 +50,36 @@ export default {
 
     },
     methods: {
+        download: function (){
+            this.produceSimpleMerge();
+
+        },
+        goBackToOrigin: function(){
+            this.produceSimpleMerge();
+
+            var regex = /.+?(?=merge_versions|[?#])/;
+            alert(this.goBack);
+            var backRoute = regex.exec(this.goBack)
+            backRoute =  backRoute + "#/?mergedModel=" + "/tmp/mergestorage/" + this.job + "/mergedModel";
+            alert(backRoute);
+            window.open(backRoute, "_self");
+        },
+        produceSimpleMerge: function(){
+            var file1 =  "/tmp/mergestorage/" + this.job + "/f1";
+            var file2 =  "/tmp/mergestorage/" + this.job + "/f2";
+
+            // Make a request for a user with a given ID
+            var bivesJob = {
+                files: [file1, file2],
+                commands: ["merge"],
+                jobID: [this.job]
+            };
+        
+            const axios = require("axios");
+            axios
+            .post("/bives/bives.php", "postParams=" + JSON.stringify(bivesJob))       
+            
+        }
 
     }
 }
