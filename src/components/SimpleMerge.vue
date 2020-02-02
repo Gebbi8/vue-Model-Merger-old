@@ -45,7 +45,7 @@ export default {
         return {
         job: this.$route.query.jobID,
         debug: false,
-        goBack: this.$route.query.goBack
+        goBack: decodeURIComponent(this.$route.query.goBack)
         };
     },
     computed: {
