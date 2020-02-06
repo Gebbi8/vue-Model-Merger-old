@@ -168,7 +168,7 @@ console.log(bivesJob);
         /*
           Make the request to the POST /multiple-files URL
         */
-        axios.post( '/multiple-files',
+        axios.post( '/bives/simpleMerge.php',
           formData,
           {
             headers: {
