@@ -6,10 +6,7 @@ $storage = '/tmp/mergestorage';
 
 $bivesJob = $_POST['bivesJob'];
 $saveMerge = TRUE;
-unset($bivesJob->jobID);
-if (in_array("merge", $commands)) {
-	$saveMerge = TRUE;
-}
+
 
 if (!isset($bivesJob) || empty($bivesJob))
 	die("no job description");

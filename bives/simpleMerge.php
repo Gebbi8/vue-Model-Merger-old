@@ -8,9 +8,6 @@ $getFile = $_GET['getFile'];
 
 
 
-
-
-
 if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 	// save both to $storage
 	$rnd = md5(time());
@@ -26,7 +23,7 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 			$dir . '/f1',
 			$dir . '/f2'
 		],
-		"commands" => ["merge"],
+		"commands" => ["merge"]
 	);
 	$bivesJob = json_encode($bivesJob);
 	$fields = array("bivesJob" => $bivesJob, "jobID" => $rnd);
@@ -47,6 +44,8 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 	
 	$result = curl_exec($curl);
 	curl_close($curl);
+
+	echo $result;
 
 	echo $rnd;
 	
@@ -70,6 +69,7 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 
 	echo $readFile;
 } else {
-	echo "FAILED! ---> getFile:" . $getFile . " job: " . $job;
+	echo "file exists: " . file_exists($storage . '/' . $job . '/' . $getFile);
+	echo "  FAILED! ---> getFile:" . $getFile . " job: " . $job;
 }
 ?>

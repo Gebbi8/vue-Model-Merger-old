@@ -160,7 +160,7 @@ export default {
               }
             )
             .then(response => {
-              console.log(response.data);
+              console.log("!!!!!!!!!!" + response.data);
               alert();
               this.forceFileDownload(response);
             });
