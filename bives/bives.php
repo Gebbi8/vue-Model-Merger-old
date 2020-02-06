@@ -16,9 +16,8 @@ if (in_array("merge", $bivesJob->commands)) {
 	$saveMerge = TRUE;
 }
 
-if (!isset($bivesJob) || empty($bivesJob)){
-	//die("no job description");
-}
+if (!isset($bivesJob) || empty($bivesJob))
+	die("no job description");
 
 
 if (isset($job) && !empty($job)) {
