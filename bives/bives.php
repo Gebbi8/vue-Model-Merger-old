@@ -20,7 +20,7 @@ curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $bivesJob);
 
 $headers = array();
-$headers[] = 'Content-Type: application/x-www-form-urlencoded';
+$headers[] = 'Content-Type: application/json';
 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
 $result = curl_exec($ch);
