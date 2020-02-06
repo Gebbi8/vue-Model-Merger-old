@@ -17,10 +17,12 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 	move_uploaded_file($_FILES['file1']['tmp_name'], $dir . '/f1');
 	move_uploaded_file($_FILES['file2']['tmp_name'], $dir . '/f2');
 
-
+	$filename = $dir . '/f1';
 	$openFile = fopen($filename, "r");
 	$readFile1 = fread($openFile, filesize($filename));
 	fclose($openFile);
+
+	$filename = $dir . '/f2';
 
 	$openFile = fopen($filename, "r");
 	$readFile2 = fread($openFile, filesize($filename));
