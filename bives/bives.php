@@ -75,8 +75,18 @@ $result = curl_exec($curl);
 curl_close($curl);
 
 if ($saveMerge) {
+	$dir;
+	if(empty($job) || !isset($job)){
+		$rnd = md5(time());
+		while (is_dir($storage . '/' . $rnd)) $rnd = md5(time ());
+		$dir = $storage . '/' . $rnd;
+		mkdir($dir, 0750, true);
+	} else {
+		$dir = $storage . '/' . $job;
+	}
+
 	$decodeResult = json_decode($result)->merge;
-	file_put_contents($storage . $job . "/mergedModel", $decodeResult);
+	file_put_contents($dir . "/mergedModel", $decodeResult);
 }
 
 echo $result;
