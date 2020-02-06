@@ -8,7 +8,6 @@ $bivesJob = $_POST['bivesJob'];
 $jobID = $_POST['job'];
 $saveMerge = TRUE;
 
-echo $bivesJob . "        ...";
 
 if (!isset($bivesJob) || empty($bivesJob))
 	die("no job description");
@@ -31,15 +30,7 @@ $result = curl_exec($curl);
 curl_close($curl);
 
 if ($saveMerge) {
-	$dir;
-	if(empty($job) || !isset($job)){
-		$rnd = md5(time());
-		while (is_dir($storage . '/' . $rnd)) $rnd = md5(time ());
-		$dir = $storage . '/' . $rnd;
-		mkdir($dir, 0750, true);
-	} else {
-		$dir = $storage . '/' . $job;
-	}
+	$dir = $storage . '/' . $job;
 
 	$decodeResult = json_decode($result)->merge;
 	file_put_contents($dir . "/mergedModel", $decodeResult);
