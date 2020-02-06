@@ -1,5 +1,5 @@
 <?php
-$Bives = 'bives.php';
+$BIVES = 'bives.php';
 $storage = '/tmp/mergestorage';
 $f1 = $_FILES['file1'];
 $f2 = $_FILES['file2'];
@@ -20,29 +20,32 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 	move_uploaded_file($_FILES['file1']['tmp_name'], $dir . '/f1');
 	move_uploaded_file($_FILES['file2']['tmp_name'], $dir . '/f2');
 
-
-
 	//build bivesJob and call bives.php
-	$bivesJobArr = array(
+	$bivesJob = array(
 		"files" => [
-			$storage . '/' . $job . '/f1',
-			$storage . '/' . $job . '/f2'
+			$dir . '/f1',
+			$dir . '/f2'
 		],
 		"commands" => ["merge"],
 	);
 
 
-	$ch = curl_init();
-	//Get first file if the files where uploaded top temp
-	curl_setopt($ch, CURLOPT_URL, $Bives . "?bivesJob=" . $job);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	$f1 = curl_exec($ch);
-	if (curl_errno($ch)) {
-		echo 'Error!!!!:' . curl_error($ch);
-	}
-	curl_close($ch);
+	curl_setopt($curl, CURLOPT_URL, $BIVES);
+	curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($curl, CURLOPT_AUTOREFERER, true);
+	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($curl, CURLOPT_USERAGENT, "stats website diff generator");
+	curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+	curl_setopt($curl, CURLOPT_POST, true);
+	curl_setopt($curl, CURLOPT_POSTFIELDS, $bivesJob);
+	curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
+	
+	$result = curl_exec($curl);
+	curl_close($curl);
 
 	echo $rnd;
+	
 } else if (
 	isset($job) && !empty($job) && isset($getFile) && !empty($getFile) &&
 	!preg_match('[^A-Za-z0-9]', $job) &&
