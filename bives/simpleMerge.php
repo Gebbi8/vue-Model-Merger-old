@@ -19,11 +19,11 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 
 	//build bivesJob and call bives.php
 	$bivesJob = 
-		"'files': ['" .
+		"{'files': ['" .
 			$dir . "/f1','" .
 			$dir . "/f2'
 		],
-		'commands': ['merge']"
+		'commands': ['merge']}"
 	;
 	$fields = array("bivesJob" => $bivesJob);
 
