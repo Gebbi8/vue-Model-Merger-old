@@ -12,6 +12,9 @@ $paramDecode = json_decode($postParams);
 $job = $paramDecode->jobID[0];
 $bivesJob = $paramDecode;
 unset($bivesJob->jobID);
+if (in_array("merge", $bivesJob->commands)) {
+	$saveMerge = TRUE;
+}
 
 if (!isset($bivesJob) || empty($bivesJob))
 	die("no job description");
@@ -48,9 +51,7 @@ if (isset($job) && !empty($job)) {
 	//construct new BiVeS Job
 	$bivesJob->files[0] = $f1;
 	$bivesJob->files[1] = $f2;
-	if (in_array("merge", $bivesJob->commands)) {
-		$saveMerge = TRUE;
-	}
+
 }
 
 
