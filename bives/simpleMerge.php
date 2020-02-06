@@ -17,15 +17,24 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 	move_uploaded_file($_FILES['file1']['tmp_name'], $dir . '/f1');
 	move_uploaded_file($_FILES['file2']['tmp_name'], $dir . '/f2');
 
+
+	$openFile = fopen($filename, "r");
+	$readFile1 = fread($openFile, filesize($filename));
+	fclose($openFile);
+
+	$openFile = fopen($filename, "r");
+	$readFile2 = fread($openFile, filesize($filename));
+	fclose($openFile);
+
 	//build bivesJob and call bives.php
-	$bivesJob = 
-		"{'files': ['" .
-			$dir . "/f1','" .
-			$dir . "/f2'
+	$bivesJob = array(
+		"files" => [
+			$readFile1, $readFile2
 		],
-		'commands': ['merge']}"
-	;
-	$fields = array("bivesJob" => $bivesJob);
+		"commands" => ["merge"]
+	);
+	$bivesJob = json_encode($bivesJob);
+	$fields = array("bivesJob" => $bivesJob, "jobID" => $rnd);
 
 	
 
@@ -61,7 +70,7 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 
 	$openFile = fopen($filename, "r");
 	$readFile = fread($openFile, filesize($filename));
-	fclose($handle);
+	fclose($openFile);
 
 
 	echo $readFile;
