@@ -29,6 +29,9 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 		"commands" => ["merge"],
 	);
 	$bivesJob = json_encode($bivesJob);
+	$fields = array("bivesJob" => $bivesJob, "jobID" => $rnd);
+
+	
 
 	$curl = curl_init();
 	curl_setopt($curl, CURLOPT_URL, $BIVES);
@@ -39,7 +42,7 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 	curl_setopt($curl, CURLOPT_USERAGENT, "simple merge request");
 	curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
 	curl_setopt($curl, CURLOPT_POST, true);
-	curl_setopt($curl, CURLOPT_POSTFIELDS, $bivesJob);
+	curl_setopt($curl, CURLOPT_POSTFIELDS, $fields);
 	curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
 	
 	$result = curl_exec($curl);
@@ -67,6 +70,6 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 
 	echo $readFile;
 } else {
-	echo "failed";
+	echo "FAILED! ---> getFile:" . $getFile . " job: " . $job;
 }
 ?>
