@@ -1,5 +1,5 @@
 <?php
-$BIVES = 'bives.php';
+$BIVES = '/bives.php';
 $storage = '/tmp/mergestorage';
 $f1 = $_FILES['file1'];
 $f2 = $_FILES['file2'];
@@ -45,7 +45,7 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 	$result = curl_exec($curl);
 	curl_close($curl);
 
-	echo $result;
+	var_dump( $result);
 
 	echo $rnd;
 	

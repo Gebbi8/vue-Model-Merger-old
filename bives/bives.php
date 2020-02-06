@@ -5,8 +5,10 @@ $DOCS = "/simpleMerge.php";
 $storage = '/tmp/mergestorage';
 
 $bivesJob = $_POST['bivesJob'];
+$jobID = $_POST['job'];
 $saveMerge = TRUE;
 
+echo $bivesJob . "        ...";
 
 if (!isset($bivesJob) || empty($bivesJob))
 	die("no job description");
