@@ -51,7 +51,6 @@ if (isset($job) && !empty($job)) {
 	//construct new BiVeS Job
 	$bivesJob->files[0] = $f1;
 	$bivesJob->files[1] = $f2;
-
 }
 
 
@@ -81,3 +80,4 @@ if ($saveMerge) {
 }
 
 echo $result;
+?>
