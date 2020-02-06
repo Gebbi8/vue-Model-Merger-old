@@ -5,7 +5,7 @@ $DOCS = "/simpleMerge.php";
 $storage = '/tmp/mergestorage';
 
 $bivesJob = $_POST['bivesJob'];
-$saveMerge = FALSE;
+$saveMerge = TRUE;
 unset($bivesJob->jobID);
 if (in_array("merge", $commands)) {
 	$saveMerge = TRUE;
