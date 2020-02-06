@@ -1,18 +1,11 @@
 <?php
-
 ini_set('max_execution_time', 600);
 $BIVES = "https://bives.bio.informatik.uni-rostock.de/";
 $DOCS = "/simpleMerge.php";
 $storage = '/tmp/mergestorage';
 
-
+$bivesJob = $_POST['bivesJob'];
 $saveMerge = FALSE;
-$postParams =  $_POST["postParams"];
-$paramDecode = json_decode($postParams);
-echo $paramDecode;
-$job = $paramDecode->jobID[0];
-$commands = $paramDecode->commands;
-$bivesJob = $paramDecode;
 unset($bivesJob->jobID);
 if (in_array("merge", $commands)) {
 	$saveMerge = TRUE;
@@ -33,8 +26,6 @@ curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
 curl_setopt($curl, CURLOPT_POST, true);
 curl_setopt($curl, CURLOPT_POSTFIELDS, $bivesJob);
 curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
-
-
 
 
 $result = curl_exec($curl);
