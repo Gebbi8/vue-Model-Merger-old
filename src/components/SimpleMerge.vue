@@ -150,7 +150,7 @@ export default {
           this.job = response.data;
 
           const paramsBuild = new URLSearchParams();
-          paramsBuild.append("jobID", this.jobID);
+          paramsBuild.append("jobID", this.job);
           paramsBuild.append("getFile", "mergedModel");
 
           axios
