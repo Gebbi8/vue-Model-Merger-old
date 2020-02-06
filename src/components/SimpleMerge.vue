@@ -7,7 +7,13 @@
       <div id="fileUpload" class="row custom-color-3">
         <div id="uploadFirst" class="col-sm-6 custom-color-1">
           <div class="custom-file">
-            <input type="file" class="custom-file-input" id="inputGroupFile02" />
+            <input
+              type="file"
+              class="custom-file-input"
+              id="inputGroupFile02"
+              ref="file1"
+              v-on:change="handleFileUpload1()"
+            />
             <label
               class="custom-file-label"
               for="inputGroupFile02"
@@ -17,7 +23,13 @@
         </div>
         <div id="uploadSecond" class="col-sm-6 custom-color-2">
           <div class="custom-file">
-            <input type="file" class="custom-file-input" id="inputGroupFile02" />
+            <input
+              type="file"
+              class="custom-file-input"
+              id="inputGroupFile02"
+              ref="file2"
+              v-on:change="handleFileUpload2()"
+            />
             <label
               class="custom-file-label"
               for="inputGroupFile02"
