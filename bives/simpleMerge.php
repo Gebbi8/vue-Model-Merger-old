@@ -18,15 +18,14 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 	move_uploaded_file($_FILES['file2']['tmp_name'], $dir . '/f2');
 
 	//build bivesJob and call bives.php
-	$bivesJob = array(
-		"files" => [
-			$dir . '/f1',
-			$dir . '/f2'
+	$bivesJob = 
+		"'files': ['" .
+			$dir . "/f1','" .
+			$dir . "/f2'
 		],
-		"commands" => ["merge"]
-	);
-	$bivesJob = json_encode($bivesJob);
-	$fields = array("bivesJob" => $bivesJob, "jobID" => $rnd);
+		'commands': ['merge']"
+	;
+	$fields = array("bivesJob" => $bivesJob);
 
 	
 
