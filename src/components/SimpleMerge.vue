@@ -57,7 +57,9 @@ export default {
       job: this.$route.query.jobID,
       debug: false,
       goBackexsists: this.$route.query.goBack,
-      goBack: decodeURIComponent(this.$route.query.goBack)
+      goBack: decodeURIComponent(this.$route.query.goBack),
+      file1: "",
+      file2: ""
     };
   },
   computed: {},
@@ -81,9 +83,11 @@ export default {
       window.open(backRoute, "_self");
     },
     produceSimpleMerge: function() {
-      var file1 = "/tmp/mergestorage/" + this.job + "/f1";
-      var file2 = "/tmp/mergestorage/" + this.job + "/f2";
+      //var file1 = "/tmp/mergestorage/" + this.job + "/f1";
+      //var file2 = "/tmp/mergestorage/" + this.job + "/f2";
 
+      var file1 = this.$refs.file1;
+      var file2 = this.$refs.file2;
       // Make a request for a user with a given ID
       var bivesJob = {
         files: [file1, file2],
@@ -95,7 +99,9 @@ export default {
       axios
         .post("/bives/bives.php", "postParams=" + JSON.stringify(bivesJob))
         .then(response => {
-          console.log(response);
+        
+            console.log(response.data);
+            alert();
           this.forceFileDownload(response);
         });
     },
@@ -106,6 +112,22 @@ export default {
       link.setAttribute("download", "mergedModel.xml"); //or any other extension
       document.body.appendChild(link);
       link.click();
+    },
+    handleFileUpload1() {
+      const reader = new FileReader();
+      reader.onload = e => {
+        console.log(e.target.result);
+        this.file1 = e.target.result;
+      };
+      reader.readAsText(this.$refs.file1.files[0]);
+    },
+    handleFileUpload2() {
+      const reader = new FileReader();
+      reader.onload = e => {
+        console.log(e.target.result);
+        this.file1 = e.target.result;
+      };
+      reader.readAsText(this.$refs.file2.files[0]);
     }
   }
 };

@@ -76,7 +76,7 @@ curl_close($curl);
 
 if ($saveMerge) {
 	$decodeResult = json_decode($result)->merge;
-	file_put_contents($storage . $job . "/mergedModel");
+	file_put_contents($storage . $job . "/mergedModel", $decodeResult);
 }
 
 echo $result;
