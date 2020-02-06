@@ -9,6 +9,7 @@ $storage = '/tmp/mergestorage';
 $saveMerge = FALSE;
 $postParams =  $_POST["postParams"];
 $paramDecode = json_decode($postParams);
+echo $paramDecode;
 $job = $paramDecode->jobID[0];
 $commands = $paramDecode->commands;
 $bivesJob = $paramDecode;
