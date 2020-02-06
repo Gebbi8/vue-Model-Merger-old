@@ -100,6 +100,11 @@ export default {
 
       var file1 = this.file1;
       var file2 = this.file2;
+
+        submitFiles();
+
+
+
       // Make a request for a user with a given ID
       var bivesJob = {
         files: [file1, file2],
@@ -142,7 +147,43 @@ console.log(bivesJob);
       };
       reader.readAsText(this.$refs.file2.files[0]);
     }
-  }
+  },
+
+  submitFiles(){
+        /*
+          Initialize the form data
+        */
+        let formData = new FormData();
+
+        /*
+          Iteate over any file sent over appending the files
+          to the form data.
+        */
+          let file = this.file1;
+          formData.append('files[0]', file);
+
+            let file = this.file2;
+          formData.append('files[1]', file);
+
+        /*
+          Make the request to the POST /multiple-files URL
+        */
+        axios.post( '/multiple-files',
+          formData,
+          {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+          }
+        ).then(function(){
+          console.log('SUCCESS!!');
+        })
+        .catch(function(){
+          console.log('FAILURE!!');
+        });
+      },
+
+  
 };
 </script>
 
