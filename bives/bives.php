@@ -12,22 +12,23 @@ $saveMerge = TRUE;
 if (!isset($bivesJob) || empty($bivesJob))
 	die("no job description");
 
-$curl = curl_init();
+$ch = curl_init();
 
-curl_setopt($curl, CURLOPT_URL, $BIVES);
-curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-curl_setopt($curl, CURLOPT_AUTOREFERER, true);
-curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($curl, CURLOPT_USERAGENT, "stats website diff generator");
-curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
-curl_setopt($curl, CURLOPT_POST, true);
-curl_setopt($curl, CURLOPT_POSTFIELDS, $bivesJob);
-curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
+curl_setopt($ch, CURLOPT_URL, 'https://bives.bio.informatik.uni-rostock.de/');
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $bivesJob);
 
+$headers = array();
+$headers[] = 'Content-Type: application/x-www-form-urlencoded';
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
-$result = curl_exec($curl);
-curl_close($curl);
+$result = curl_exec($ch);
+if (curl_errno($ch)) {
+    echo 'Error:' . curl_error($ch);
+}
+curl_close($ch);
+
 
 if ($saveMerge) {
 	$dir = $storage . '/' . $job;

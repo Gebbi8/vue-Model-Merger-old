@@ -67,7 +67,7 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 
 	echo $readFile;
 } else {
-	echo "file exists: " . file_exists($storage . '/' . $job . '/' . $getFile);
+	if(!file_exists($storage . '/' . $job . '/' . $getFile)) echo "file does not exists .." ;
 	echo "  FAILED! ---> getFile:" . $getFile . " job: " . $job;
 }
 ?>
