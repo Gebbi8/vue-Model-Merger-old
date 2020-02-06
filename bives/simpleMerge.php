@@ -28,6 +28,7 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 		],
 		"commands" => ["merge"],
 	);
+	$bivesJob = json_encode($bivesJob);
 
 	$curl = curl_init();
 	curl_setopt($curl, CURLOPT_URL, $BIVES);
