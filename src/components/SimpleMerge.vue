@@ -162,7 +162,7 @@ console.log(bivesJob);
           let file = this.file1;
           formData.append('files[0]', file);
 
-            let file = this.file2;
+            file = this.file2;
           formData.append('files[1]', file);
 
         /*
