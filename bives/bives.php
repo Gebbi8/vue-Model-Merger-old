@@ -1,8 +1,8 @@
 <?php
 
 ini_set('max_execution_time', 600);
-$BIVES="https://bives.bio.informatik.uni-rostock.de/";
-$DOCS="/simpleMerge.php";
+$BIVES = "https://bives.bio.informatik.uni-rostock.de/";
+$DOCS = "/simpleMerge.php";
 $storage = '/tmp/mergestorage';
 
 
@@ -13,11 +13,11 @@ $job = $paramDecode->jobID[0];
 $bivesJob = $paramDecode;
 unset($bivesJob->jobID);
 
-if (!isset ($bivesJob) || empty ($bivesJob))
-	die ("no job description");
+if (!isset($bivesJob) || empty($bivesJob))
+	die("no job description");
 
 
-if(isset ($job) && !empty ($job)){
+if (isset($job) && !empty($job)) {
 
 
 
@@ -37,7 +37,7 @@ if(isset ($job) && !empty ($job)){
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, $DOCS . "?jobID=" . $job . "&getFile=" . "f2");
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	$f2 = curl_exec($ch); 
+	$f2 = curl_exec($ch);
 	if (curl_errno($ch)) {
 		echo 'Error!!!!!---_!:' . curl_error($ch);
 	}
@@ -48,26 +48,25 @@ if(isset ($job) && !empty ($job)){
 	//construct new BiVeS Job
 	$bivesJob->files[0] = $f1;
 	$bivesJob->files[1] = $f2;
-	if(in_array("merge",$bivesJob->commands){
+	if (in_array("merge", $bivesJob->commands)) {
 		$saveMerge = TRUE;
-		}
-	
+	}
 }
 
 
 $bivesJob = json_encode($bivesJob);
 $curl = curl_init();
 
-curl_setopt($curl,CURLOPT_URL,$BIVES);
-curl_setopt($curl,CURLOPT_FOLLOWLOCATION,true);
-curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false );
-curl_setopt($curl, CURLOPT_AUTOREFERER, true );
-curl_setopt($curl, CURLOPT_RETURNTRANSFER, true );
+curl_setopt($curl, CURLOPT_URL, $BIVES);
+curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($curl, CURLOPT_AUTOREFERER, true);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($curl, CURLOPT_USERAGENT, "stats website diff generator");
 curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
 curl_setopt($curl, CURLOPT_POST, true);
 curl_setopt($curl, CURLOPT_POSTFIELDS, $bivesJob);
-curl_setopt($curl, CURLOPT_HTTPHEADER, array ("Content-Type: application/json"));
+curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
 
 
 
@@ -75,10 +74,9 @@ curl_setopt($curl, CURLOPT_HTTPHEADER, array ("Content-Type: application/json"))
 $result = curl_exec($curl);
 curl_close($curl);
 
-if($saveMerge){
+if ($saveMerge) {
 	$decodeResult = json_decode($result)->merge;
 	file_put_contents($storage . $job . "/mergedModel");
 }
 
 echo $result;
-?>
