@@ -45,8 +45,6 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 	$result = curl_exec($curl);
 	curl_close($curl);
 
-	var_dump( $result);
-
 	echo $rnd;
 	
 } else if (
