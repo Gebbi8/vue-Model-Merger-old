@@ -98,8 +98,8 @@ export default {
       //var file1 = "/tmp/mergestorage/" + this.job + "/f1";
       //var file2 = "/tmp/mergestorage/" + this.job + "/f2";
 
-      var file1 = this.$refs.file1;
-      var file2 = this.$refs.file2;
+      var file1 = this.file1;
+      var file2 = this.file2;
       // Make a request for a user with a given ID
       var bivesJob = {
         files: [file1, file2],
@@ -107,6 +107,7 @@ export default {
         jobID: [this.job]
       };
 
+console.log(bivesJob);
       const axios = require("axios");
       axios
         .post("/bives/bives.php", "postParams=" + JSON.stringify(bivesJob))
@@ -137,7 +138,7 @@ export default {
       const reader = new FileReader();
       reader.onload = e => {
         console.log(e.target.result);
-        this.file1 = e.target.result;
+        this.file2= e.target.result;
       };
       reader.readAsText(this.$refs.file2.files[0]);
     }

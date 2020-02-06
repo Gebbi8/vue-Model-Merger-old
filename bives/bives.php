@@ -10,9 +10,10 @@ $saveMerge = FALSE;
 $postParams =  $_POST["postParams"];
 $paramDecode = json_decode($postParams);
 $job = $paramDecode->jobID[0];
+$commands = $paramDecode->commands;
 $bivesJob = $paramDecode;
 unset($bivesJob->jobID);
-if (in_array("merge", $bivesJob->commands)) {
+if (in_array("merge", $commands)) {
 	$saveMerge = TRUE;
 }
 
