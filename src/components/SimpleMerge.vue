@@ -101,27 +101,7 @@ export default {
       var file1 = this.file1;
       var file2 = this.file2;
 
-        submitFiles();
-
-
-
-      // Make a request for a user with a given ID
-      var bivesJob = {
-        files: [file1, file2],
-        commands: ["merge"],
-        jobID: [this.job]
-      };
-
-console.log(bivesJob);
-      const axios = require("axios");
-      axios
-        .post("/bives/bives.php", "postParams=" + JSON.stringify(bivesJob))
-        .then(response => {
-        
-            console.log(response.data);
-            alert();
-          this.forceFileDownload(response);
-        });
+      this.submitFiles();
     },
     forceFileDownload(response) {
       const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -132,58 +112,64 @@ console.log(bivesJob);
       link.click();
     },
     handleFileUpload1() {
-      const reader = new FileReader();
-      reader.onload = e => {
-        console.log(e.target.result);
-        this.file1 = e.target.result;
-      };
-      reader.readAsText(this.$refs.file1.files[0]);
+      this.file1 = this.$refs.file1.files[0];
     },
     handleFileUpload2() {
-      const reader = new FileReader();
-      reader.onload = e => {
-        console.log(e.target.result);
-        this.file2= e.target.result;
-      };
-      reader.readAsText(this.$refs.file2.files[0]);
-    }
-  },
+      this.file2 = this.$refs.file2.files[0];
+    },
 
-  submitFiles(){
-        /*
+    submitFiles() {
+      /*
           Initialize the form data
         */
-        let formData = new FormData();
+      let formData = new FormData();
 
-        /*
+      /*
           Iteate over any file sent over appending the files
           to the form data.
         */
-          let file = this.file1;
-          formData.append('files[0]', file);
+      let file = this.file1;
+      formData.append("file1", file);
 
-            file = this.file2;
-          formData.append('files[1]', file);
+      file = this.file2;
+      formData.append("file2", file);
 
-        /*
+      /*
           Make the request to the POST /multiple-files URL
         */
-        axios.post( '/bives/simpleMerge.php',
-          formData,
-          {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-          }
-        ).then(function(){
-          console.log('SUCCESS!!');
-        })
-        .catch(function(){
-          console.log('FAILURE!!');
-        });
-      },
+      const axios = require("axios");
 
-  
+      axios
+        .post("/bives/simpleMerge.php", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        })
+        .then(response => {
+          console.log("ID = " + response.data);
+          this.job = response.data;
+
+          const paramsBuild = new URLSearchParams();
+          paramsBuild.append("jobID", this.jobID);
+          paramsBuild.append("getFile", "mergedModel");
+
+          axios
+            .get(
+              "/bives/simpleMerge.php", {
+                  params: paramsBuild
+              }
+            )
+            .then(response => {
+              console.log(response.data);
+              alert();
+              this.forceFileDownload(response);
+            });
+        })
+        .catch(function(e) {
+          console.log("FAILURE!!" + e);
+        });
+    }
+  }
 };
 </script>
 
