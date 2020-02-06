@@ -56,6 +56,7 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 	curl_close($curl);
 
 	echo $rnd;
+	echo "mergeResult: " . $result;
 	
 } else if (
 	isset($job) && !empty($job) && isset($getFile) && !empty($getFile) &&
