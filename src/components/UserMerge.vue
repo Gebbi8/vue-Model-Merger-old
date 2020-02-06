@@ -1,5 +1,12 @@
 <template>
     <div id="user-merge">
+      <div id="generalInfo">
+        <h3>Semi-Automatic Merging</h3>
+        <h4>Still under development</h4>
+        <p>You are in the semi-automatic merging mode. This means you can cherry-pick the changes you want to apply. To base the merging on one model and add parts, choose a main model. </p>
+      </div>
+
+
         <app-carousel :decArr="decisionArr" @arrChanged="decisionArr = $event" @slideChange="currentSlide = $ent" @gotOldDoc="oldDocument = $event" @gotNewDoc="newDocument = $event"/> 
         <app-selection :decArr="decisionArr" :slideChng="currentSlide" :oldDoc="oldDocument" :newDoc="newDocument"/>
     </div>
