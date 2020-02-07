@@ -14,6 +14,12 @@ $bivesJob = $_POST['bivesJob'];
 $jobID = $_POST['job'];
 $saveMerge = TRUE;
 
+$post = file_get_contents('php://input');
+echo "<br/>\n  $post";
+
+foreach ($_POST as $param_name => $param_val) {
+    echo "Param: $param_name; Value: $param_val<br />\n";
+}
 
 if (!isset($bivesJob) || empty($bivesJob))
 	die(var_dump($_POST));
