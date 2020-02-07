@@ -27,6 +27,10 @@ $result = curl_exec($ch);
 if (curl_errno($ch)) {
     echo 'Error:' . curl_error($ch);
 }
+
+echo curl_getinfo($curl) . '<br/>';
+echo curl_errno($curl) . '<br/>';
+echo curl_error($curl) . '<br/>';
 curl_close($ch);
 
 
