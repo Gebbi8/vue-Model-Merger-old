@@ -33,8 +33,8 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 	fclose($openFile);
 
 	//build bivesJob and call bives.php
-	$bivesJobArr -> files = array($readFile1, $readFile2);
-	$bivesJobArr -> commands = array("merge");
+	$bivesJobArr->files = array($readFile1, $readFile2);
+	$bivesJobArr->commands = array("merge");
 
 	$bivesJob = json_encode($bivesJobArr, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE |JSON_NUMERIC_CHECK | JSON_PRETTY_PRINT);
 
