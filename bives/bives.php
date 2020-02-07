@@ -35,8 +35,8 @@ $headers[] = 'Content-Type: application/json';
 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
 $result = curl_exec($ch);
-if (curl_errno($ch)) {
-    echo 'Error:' . curl_error($ch);
+if ($result === false) {
+    throw new Exception(curl_error($ch), curl_errno($ch));
 }
 
 echo curl_getinfo($curl) . '<br/>';
