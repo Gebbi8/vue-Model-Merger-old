@@ -52,7 +52,7 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 echo curl_errno($curl) . '<br/>';
 echo curl_error($curl) . '<br/>';
 	curl_close($curl);
-var_dump($result);
+var_dump("!!---!!",$result);
 	echo $rnd;
 	
 } else if (
