@@ -16,7 +16,7 @@ $saveMerge = TRUE;
 
 
 if (!isset($bivesJob) || empty($bivesJob))
-	die("NO JOB DESCRIPTION");
+	die(var_dump($_POST));
 
 $ch = curl_init();
 
