@@ -31,7 +31,7 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 	//build bivesJob and call bives.php
 	$bivesJobArr = array(
 		'files' => [
-			$readFile1, $readFile2
+			$f1, $f2
 		],
 		'commands' => ["merge"]
 	);
