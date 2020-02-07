@@ -19,10 +19,16 @@ if (!isset($bivesJob) || empty($bivesJob))
 
 $ch = curl_init();
 
-curl_setopt($ch, CURLOPT_URL, $BIVES);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_POSTFIELDS, $bivesJob);
+curl_setopt($curl,CURLOPT_URL,$BIVES);
+curl_setopt($curl,CURLOPT_FOLLOWLOCATION,true);
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false );
+curl_setopt($curl, CURLOPT_AUTOREFERER, true );
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true );
+curl_setopt($curl, CURLOPT_USERAGENT, "stats website diff generator");
+curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+curl_setopt($curl, CURLOPT_POST, true);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $bivesJob);
+curl_setopt($curl, CURLOPT_HTTPHEADER, array ("Content-Type: application/json"));
 
 $headers = array();
 $headers[] = 'Content-Type: application/json';
