@@ -9,13 +9,14 @@ $BIVES = "https://bives.bio.informatik.uni-rostock.de/";
 $DOCS = "/simpleMerge.php";
 $storage = '/tmp/mergestorage';
 
+
 $bivesJob = $_POST['bivesJob'];
 $jobID = $_POST['job'];
 $saveMerge = TRUE;
 
 
 if (!isset($bivesJob) || empty($bivesJob))
-	die("no job description");
+	die(var_dump(get_defined_vars()));
 
 $ch = curl_init();
 
