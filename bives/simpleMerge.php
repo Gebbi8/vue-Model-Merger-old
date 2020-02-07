@@ -29,28 +29,23 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 	fclose($openFile);
 
 	//build bivesJob and call bives.php
-	$bivesJob = array(
+	$bivesJobArr = array(
 		"files" => [
 			$readFile1, $readFile2
 		],
 		"commands" => ["merge"]
 	);
-	$bivesJob = json_encode($bivesJob);
+	$bivesJob = json_encode($bivesJobArr);
 	$fields = array("bivesJob" => $bivesJob, "jobID" => $rnd);
 
-	
+	var_dump($bivesJob,$bivesJobArr);
+	echo json_last_error();
 
 	$curl = curl_init();
 	curl_setopt($curl, CURLOPT_URL, $BIVES);
-	curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-	curl_setopt($curl, CURLOPT_AUTOREFERER, true);
-	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($curl, CURLOPT_USERAGENT, "simple merge request");
-	curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
-	curl_setopt($curl, CURLOPT_POST, true);
+	curl_setopt($curl, CURLOPT_POST, 1);
 	curl_setopt($curl, CURLOPT_POSTFIELDS, $bivesJob);
-	curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
+	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 	
 	$result = curl_exec($curl);
 	curl_close($curl);
