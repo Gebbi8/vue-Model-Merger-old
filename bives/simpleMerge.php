@@ -35,7 +35,7 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 		),
 		'commands' => array("merge")
 	);
-	$bivesJob = json_encode($bivesJobArr);
+	$bivesJob = json_encode($bivesJobArr, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE |JSON_NUMERIC_CHECK | JSON_PRETTY_PRINT);
 
 	echo "encode result:";
 	var_dump($bivesJob);
