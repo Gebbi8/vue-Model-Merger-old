@@ -33,10 +33,22 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 	fclose($openFile);
 
 	//build bivesJob and call bives.php
-	$bivesJobArr = new \stdClass();
+/*	$bivesJobArr = new \stdClass();
 	$bivesJobArr->success = false;
 	$bivesJobArr->files = array($readFile1, $readFile2);
 	$bivesJobArr->commands = array("merge");
+*/
+	$bivesJobArr = array(
+		'files' => array(
+			$readfile1,
+			$readFile2
+		),
+		'commands' => array(
+			"merge"
+		)
+
+		);
+
 
 	$bivesJob = json_encode($bivesJobArr, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE |JSON_NUMERIC_CHECK | JSON_PRETTY_PRINT);
 
@@ -50,7 +62,7 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 	curl_setopt($curl, CURLOPT_USERAGENT, "stats website diff generator");
 	curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
 	curl_setopt($curl, CURLOPT_POST, true);
-	curl_setopt($curl, CURLOPT_POSTFIELDS, $bivesJob);
+	curl_setopt($curl, CURLOPT_POSTFIELDS, array("bivesJob" => $bivesJob);
 	curl_setopt($curl, CURLOPT_HTTPHEADER, array ("Content-Type: application/json"));
 	
 	$result = curl_exec($curl);
