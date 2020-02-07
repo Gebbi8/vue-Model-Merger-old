@@ -33,6 +33,8 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 	fclose($openFile);
 
 	//build bivesJob and call bives.php
+	$bivesJobArr = new \stdClass();
+	$bivesJobArr->success = false;
 	$bivesJobArr->files = array($readFile1, $readFile2);
 	$bivesJobArr->commands = array("merge");
 
