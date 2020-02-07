@@ -30,12 +30,12 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 
 	//build bivesJob and call bives.php
 	$bivesJobArr = array(
-		'files' => [
+		'files' => array(
 			$readFile1, $readFile2
-		],
-		'commands' => ["merge"]
+		),
+		'commands' => array("merge")
 	);
-	$bivesJob = json_encode($bivesJobArr);
+	$bivesJob = json_encode($bivesJobArr, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE |JSON_NUMERIC_CHECK | JSON_PRETTY_PRINT);
 
 	echo "encode result:";
 	var_dump($bivesJob);
