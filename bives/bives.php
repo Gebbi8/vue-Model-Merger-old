@@ -1,4 +1,9 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+
 ini_set('max_execution_time', 600);
 $BIVES = "https://bives.bio.informatik.uni-rostock.de/";
 $DOCS = "/simpleMerge.php";
@@ -41,5 +46,5 @@ if ($saveMerge) {
 	file_put_contents($dir . "/mergedModel", $decodeResult);
 }
 
-echo $result;
+echo "Result from BiVeS" . $result;
 ?>

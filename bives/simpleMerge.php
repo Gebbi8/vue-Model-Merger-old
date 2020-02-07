@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 $BIVES = '/bives.php';
 $storage = '/tmp/mergestorage';
 $f1 = $_FILES['file1'];
@@ -58,7 +62,7 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 echo curl_errno($curl) . '<br/>';
 echo curl_error($curl) . '<br/>';
 	curl_close($curl);
-var_dump("!!---!!",$result);
+var_dump("!!---!!",$result, "^^^^");
 	echo $rnd;
 	
 } else if (
