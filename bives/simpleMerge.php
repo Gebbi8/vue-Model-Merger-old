@@ -3,7 +3,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-$BIVES = '/bives.php';
+$BIVES = 'https://merge-proto.bio.informatik.uni-rostock.de/bives/bives.php';
 $storage = '/tmp/mergestorage';
 $f1 = $_FILES['file1'];
 $f2 = $_FILES['file2'];
