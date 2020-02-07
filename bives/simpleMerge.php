@@ -39,16 +39,16 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 	$bivesJobArr->commands = array("merge");
 */
 	$postField = array();
-	$postField['bivesJob'] = array(
+	$postField['bivesJob'] = json_encode(array(
 		'files' => array(
-			$readfile1,
+			$readFile1,
 			$readFile2
 		),
 		'commands' => array(
 			"merge"
 		)
 
-		);
+		));
 
 
 	$bivesJob = json_encode($postField, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE |JSON_NUMERIC_CHECK | JSON_PRETTY_PRINT);
