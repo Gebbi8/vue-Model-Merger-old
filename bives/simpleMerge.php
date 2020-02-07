@@ -30,16 +30,14 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 
 	//build bivesJob and call bives.php
 	$bivesJobArr = array(
-		"files" => [
+		'files' => [
 			$readFile1, $readFile2
 		],
-		"commands" => ["merge"]
+		'commands' => ["merge"]
 	);
 	$bivesJob = json_encode($bivesJobArr);
-	$fields = array("bivesJob" => $bivesJob, "jobID" => $rnd);
 
-	var_dump($bivesJob,$bivesJobArr);
-	echo json_last_error();
+	//var_dump($bivesJob);
 
 	$curl = curl_init();
 	curl_setopt($curl, CURLOPT_URL, $BIVES);
@@ -49,9 +47,8 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 	
 	$result = curl_exec($curl);
 	curl_close($curl);
-
+var_dump($result);
 	echo $rnd;
-	echo "mergeResult: " . $result;
 	
 } else if (
 	isset($job) && !empty($job) && isset($getFile) && !empty($getFile) &&
