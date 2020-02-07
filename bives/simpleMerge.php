@@ -56,7 +56,7 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 	$result = curl_exec($curl);
 	if ($result === false) {
 		throw new Exception(curl_error($curl), curl_errno($curl));
-	}
+	} else {echo $result;}
 	
 	echo $rnd;
 	
