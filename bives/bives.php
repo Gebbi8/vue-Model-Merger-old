@@ -27,7 +27,7 @@ curl_setopt($curl, CURLOPT_RETURNTRANSFER, true );
 curl_setopt($curl, CURLOPT_USERAGENT, "stats website diff generator");
 curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
 curl_setopt($curl, CURLOPT_POST, true);
-curl_setopt($curl, CURLOPT_POSTFIELDS, $bivesJob);
+curl_setopt($curl, CURLOPT_POSTFIELDS, json_decode($bivesJob));
 curl_setopt($curl, CURLOPT_HTTPHEADER, array ("Content-Type: application/json"));
 
 $headers = array();
@@ -38,16 +38,11 @@ $result = curl_exec($ch);
 if ($result === false) {
     throw new Exception(curl_error($ch), curl_errno($ch));
 }
-
-echo curl_getinfo($curl) . '<br/>';
-echo curl_errno($curl) . '<br/>';
-echo curl_error($curl) . '<br/>';
 curl_close($ch);
 
 
 if ($saveMerge) {
 	$dir = $storage . '/' . $job;
-
 	$decodeResult = json_decode($result)->merge;
 	file_put_contents($dir . "/mergedModel", $decodeResult);
 }
