@@ -38,7 +38,8 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 	$bivesJobArr->files = array($readFile1, $readFile2);
 	$bivesJobArr->commands = array("merge");
 */
-	$bivesJobArr = array(
+	$postField = array();
+	$postField['bivesJob'] = array(
 		'files' => array(
 			$readfile1,
 			$readFile2
@@ -50,7 +51,7 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 		);
 
 
-	$bivesJob = json_encode($bivesJobArr, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE |JSON_NUMERIC_CHECK | JSON_PRETTY_PRINT);
+	$bivesJob = json_encode($postField, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE |JSON_NUMERIC_CHECK | JSON_PRETTY_PRINT);
 
 
 	$curl = curl_init();
@@ -66,6 +67,7 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 	curl_setopt($curl, CURLOPT_HTTPHEADER, array ("Content-Type: application/json"));
 	
 	$result = curl_exec($curl);
+	curl_close($curl);
 	if ($result === false) {
 		throw new Exception(curl_error($curl), curl_errno($curl));
 	} else {echo $result;}
