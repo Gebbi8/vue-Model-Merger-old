@@ -112,7 +112,7 @@ export default {
       link.click();
     },
     handleFileUpload1() {
-      this.file1 = this.$refs.file1.files[0];
+      this.file1 = this.$refs.file1.files[0].value;
     },
     handleFileUpload2() {
       this.file2 = this.$refs.file2.files[0];
@@ -161,7 +161,6 @@ export default {
             )
             .then(response => {
               console.log("!!!!!!!!!!" + response.data);
-              alert(paramsBuild);
               this.forceFileDownload(response);
             });
         })
