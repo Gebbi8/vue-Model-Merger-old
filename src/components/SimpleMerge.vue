@@ -161,7 +161,7 @@ export default {
             )
             .then(response => {
               console.log("!!!!!!!!!!" + response.data);
-              alert();
+              alert(paramsBuild);
               this.forceFileDownload(response);
             });
         })
