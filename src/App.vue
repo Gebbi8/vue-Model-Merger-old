@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="container-fluid">
+  <div id="app" class="d-flex flex-column h-100">
     <div class="row custom-color-1" id="head">
       <div class="container">
         <div class="row">
@@ -9,7 +9,10 @@
               type="button"
               class="btn btn-primary btn-sm"
               v-on:click="btnSwitchView"
-            >Switch Mode</button>
+              v-if="debug"
+            >
+              Switch Mode
+            </button>
           </div>
         </div>
       </div>
@@ -18,9 +21,11 @@
       <div class="container">
         <div class="row justify-content-center">
           <p class="col-8">
-            Model development is often a non-linear process and happens on different levels of granularity.
-            A model can focus on a few molecular interactions, specifc diseases, systems ore even the whole body.
-            A lot literature and experimental based information has to be gathered to build a model.
+            Model development is often a non-linear process and happens on
+            different levels of granularity. A model can focus on a few
+            molecular interactions, specifc diseases, systems ore even the whole
+            body. A lot literature and experimental based information has to be
+            gathered to build a model.
           </p>
         </div>
       </div>
@@ -31,12 +36,15 @@
         <app-simpleMerge v-else></app-simpleMerge>
       </div>
     </div>
-    <div class="row custom-color-3" id="foot">
+    <div class="row footer mt-auto custom-color-3" id="foot">
       <div class="container">
         <!--Image-->
         <div class="row">
           <div class="col-2 d-flex align-items-center">
-            <a href="https://integrative-pathway-models.de/" title="INCOME-Website">
+            <a
+              href="https://integrative-pathway-models.de/"
+              title="INCOME-Website"
+            >
               <img src="./assets/csm_logo_INCOME11.png" class="img-fluid" alt />
             </a>
           </div>
@@ -48,9 +56,9 @@
           </div>
         </div>
         <div class="row">
-          <div
-            class="col-12 d-flex justify-content-start"
-          >The project was funded by the BMBF (FKZ: 01ZX1705C)</div>
+          <div class="col-12 d-flex justify-content-start">
+            The project was funded by the BMBF (FKZ: 01ZX1705C)
+          </div>
         </div>
       </div>
     </div>
@@ -66,14 +74,14 @@ export default {
   data() {
     return {
       simple: true,
-      job: this.$route.query.jobID
+      job: this.$route.query.jobID,
     };
   },
   methods: {
-    btnSwitchView: function() {
+    btnSwitchView: function () {
       this.simple = !this.simple;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -89,7 +97,7 @@ export default {
 }
 
 .custom-color-3 {
-  background-color: #2b7a78;
+  background-color: white;
   color: #17252a;
 }
 
@@ -104,5 +112,9 @@ export default {
 #foot {
   padding-top: 1em;
   padding-bottom: 1em;
+}
+
+#contact > p {
+  margin-bottom: auto;
 }
 </style>

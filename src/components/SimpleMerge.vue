@@ -1,7 +1,12 @@
 <template>
   <div id="simpleMerge" class>
     <h3>Automatic Merging</h3>
-    <p>With the fully automatic approach to merging you only need to provide the two files you want to merge. This can either happen trough our API from other platform, such as the FAIRDOMHub, from the command line with cUrl or with troug the user interface.</p>
+    <p>
+      With the fully automatic approach to merging you only need to provide the
+      two files you want to merge. This can either happen trough our API from
+      other platform, such as the FAIRDOMHub, from the command line with cUrl or
+      trough the user interface on this page.
+    </p>
     <div></div>
     <div v-if="!job">
       <div id="fileUpload" class="row custom-color-3">
@@ -18,7 +23,8 @@
               class="custom-file-label"
               for="inputGroupFile02"
               aria-describedby="inputGroupFileAddon02"
-            >Choose file</label>
+              >{{ file1.name || "Choose file" }}</label
+            >
           </div>
         </div>
         <div id="uploadSecond" class="col-sm-6 custom-color-2">
@@ -34,7 +40,8 @@
               class="custom-file-label"
               for="inputGroupFile02"
               aria-describedby="inputGroupFileAddon02"
-            >Choose file</label>
+              >{{ file2.name || "Choose file" }}</label
+            >
           </div>
         </div>
       </div>
@@ -51,14 +58,18 @@
       v-on:click="download"
       type="button"
       class="btn btn-primary btn-lg"
-    >Download SBML</button>
+    >
+      Download SBML
+    </button>
     <button
       v-else
       ref="goBackBtn"
       v-on:click="goBackToOrigin"
       type="button"
       class="btn btn-primary btn-lg"
-    >Return to Starting Page</button>
+    >
+      Return to Starting Page
+    </button>
   </div>
 </template>
 
@@ -71,15 +82,15 @@ export default {
       goBackexsists: this.$route.query.goBack,
       goBack: decodeURIComponent(this.$route.query.goBack),
       file1: "",
-      file2: ""
+      file2: "",
     };
   },
   computed: {},
   methods: {
-    download: function() {
+    download: function () {
       this.produceSimpleMerge();
     },
-    goBackToOrigin: function() {
+    goBackToOrigin: function () {
       this.produceSimpleMerge();
 
       var regex = /.+?(?=merge_versions|[?#])/;
@@ -94,7 +105,7 @@ export default {
       alert(backRoute);
       window.open(backRoute, "_self");
     },
-    produceSimpleMerge: function() {
+    produceSimpleMerge: function () {
       //var file1 = "/tmp/mergestorage/" + this.job + "/f1";
       //var file2 = "/tmp/mergestorage/" + this.job + "/f2";
 
@@ -112,10 +123,12 @@ export default {
       link.click();
     },
     handleFileUpload1() {
-      this.file1 = this.$refs.file1.files[0].value;
+      this.file1 = this.$refs.file1.files[0];
+      console.log(this.$refs.file1.files[0]);
     },
     handleFileUpload2() {
       this.file2 = this.$refs.file2.files[0];
+      console.log(this.$refs.file2.files[0]);
     },
 
     submitFiles() {
@@ -129,10 +142,12 @@ export default {
           to the form data.
         */
       let file = this.file1;
+      console.log(file);
       formData.append("file1", file);
 
       file = this.file2;
       formData.append("file2", file);
+      console.log(formData);
 
       /*
           Make the request to the POST /multiple-files URL
@@ -142,10 +157,10 @@ export default {
       axios
         .post("/bives/simpleMerge.php", formData, {
           headers: {
-            "Content-Type": "multipart/form-data"
-          }
+            "Content-Type": "multipart/form-data",
+          },
         })
-        .then(response => {
+        .then((response) => {
           console.log("ID = " + response.data);
           this.job = response.data;
 
@@ -154,21 +169,19 @@ export default {
           paramsBuild.append("getFile", "mergedModel");
 
           axios
-            .get(
-              "/bives/simpleMerge.php", {
-                  params: paramsBuild
-              }
-            )
-            .then(response => {
+            .get("/bives/simpleMerge.php", {
+              params: paramsBuild,
+            })
+            .then((response) => {
               console.log("!!!!!!!!!!" + response.data);
               this.forceFileDownload(response);
             });
         })
-        .catch(function(e) {
+        .catch(function (e) {
           console.log("FAILURE!!" + e);
         });
-    }
-  }
+    },
+  },
 };
 </script>
 
