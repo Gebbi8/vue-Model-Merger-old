@@ -114,3 +114,4 @@ function callBives($bivesJob, $saveMerge, $BIVES, $storage, $job)
 
 	return $result;
 }
+?>
