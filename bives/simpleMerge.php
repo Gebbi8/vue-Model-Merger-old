@@ -20,7 +20,7 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 	$rnd = md5(time());
 	while (is_dir($storage . '/' . $rnd)) $rnd = md5(time());
 	$dir = $storage . '/' . $rnd;
-	mkdir($dir, 0750, true);
+	mkdir($dir, 0777 , true);
 	move_uploaded_file($_FILES['file1']['tmp_name'], $dir . '/f1');
 	move_uploaded_file($_FILES['file2']['tmp_name'], $dir . '/f2');
 
