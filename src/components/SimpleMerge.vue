@@ -161,6 +161,7 @@ export default {
           },
         })
         .then((response) => {
+          console.log(response);
           console.log("ID = " + response.data);
           this.job = response.data;
 
