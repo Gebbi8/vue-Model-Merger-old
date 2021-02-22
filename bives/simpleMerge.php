@@ -54,7 +54,8 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 
 	callBives($bivesJob, $saveMerge, $BIVES, $storage, $rnd);
 
-	echo $rnd;
+	echo "mkdir echo: " . file_exists($dir);
+	echo "testesttesttest" . $rnd;
 } else if (
 	isset($job) && !empty($job) && isset($getFile) && !empty($getFile) &&
 	!preg_match('[^A-Za-z0-9]', $job) &&
