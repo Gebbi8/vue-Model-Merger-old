@@ -78,7 +78,7 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 	echo $readFile;
 } else {
 	if (!file_exists($storage) ) echo "STORAGE does not exist " . $storage;
-	else if (!file_exists($storage . '/' . $job) ) echo "ID does not exist " . $storage;
+	else if (!file_exists($storage . '/' . $job) ) echo "ID does not exist " . $storage . '/' . $job . "\n";
 	else if (!file_exists($storage . '/' . $job . '/' . $getFile)) echo "FILE DOESNT EXIST " . $storage . '/' . $job . '/' . $getFile;
 	echo "  FAILED! ---> getFile:" . $getFile . " job: " . $job . " updateID: 1";
 }
