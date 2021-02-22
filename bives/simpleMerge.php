@@ -1,5 +1,5 @@
 <?php
-echo "check for update: 1";
+echo "check for update: 2";
 // ini_set('display_errors', 1);
 // ini_set('display_startup_errors', 1);
 // error_reporting(E_ALL);
@@ -21,7 +21,7 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 	$rnd = md5(time());
 	while (is_dir($storage . '/' . $rnd)) $rnd = md5(time());
 	$dir = $storage . '/' . $rnd;
-	mkdir($dir, 0777 , true);
+	mkdir($dir, 0755 , true);
 	move_uploaded_file($_FILES['file1']['tmp_name'], $dir . '/f1');
 	move_uploaded_file($_FILES['file2']['tmp_name'], $dir . '/f2');
 
@@ -78,8 +78,8 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 	echo $readFile;
 } else {
 	if (!file_exists($storage) ) echo "STORAGE does not exist " . $storage;
-	if (!file_exists($storage . '/' . $job) ) echo "ID does not exist " . $storage;
-	if (!file_exists($storage . '/' . $job . '/' . $getFile)) echo "FILE DOESNT EXIST " . $storage . '/' . $job . '/' . $getFile;
+	else if (!file_exists($storage . '/' . $job) ) echo "ID does not exist " . $storage;
+	else if (!file_exists($storage . '/' . $job . '/' . $getFile)) echo "FILE DOESNT EXIST " . $storage . '/' . $job . '/' . $getFile;
 	echo "  FAILED! ---> getFile:" . $getFile . " job: " . $job;
 }
 
