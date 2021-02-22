@@ -3,6 +3,7 @@
 // ini_set('display_startup_errors', 1);
 // error_reporting(E_ALL);
 
+//Error in 11 and 12 expected if source updates
 $BIVES = "https://bives.bio.informatik.uni-rostock.de/";
 $storage = '/tmp/mergestorage';
 $f1 = $_FILES['file1'];
@@ -35,7 +36,7 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 	fclose($openFile);
 
 	//build bivesJob and call bives.php
-/*	$bivesJobArr = new \stdClass();
+	/*	$bivesJobArr = new \stdClass();
 	$bivesJobArr->success = false;
 	$bivesJobArr->files = array($readFile1, $readFile2);
 	$bivesJobArr->commands = array("merge");
@@ -49,12 +50,11 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 			"merge"
 		)
 
-		));
+	));
 
 	callBives($bivesJob, $saveMerge, $BIVES, $storage, $rnd);
 
 	echo $rnd;
-	
 } else if (
 	isset($job) && !empty($job) && isset($getFile) && !empty($getFile) &&
 	!preg_match('[^A-Za-z0-9]', $job) &&
@@ -75,34 +75,35 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 
 	echo $readFile;
 } else {
-	if(!file_exists($storage . '/' . $job . '/' . $getFile)) echo "file does not exists .. " .$storage . '/' . $job . '/' . $getFile ;
+	if (!file_exists($storage . '/' . $job . '/' . $getFile)) echo "file does not exists .. " . $storage . '/' . $job . '/' . $getFile;
 	echo "  FAILED! ---> getFile:" . $getFile . " job: " . $job;
 }
 
-function callBives($bivesJob, $saveMerge, $BIVES, $storage, $job){
+function callBives($bivesJob, $saveMerge, $BIVES, $storage, $job)
+{
 	$curl = curl_init();
 
-	curl_setopt($curl,CURLOPT_URL,$BIVES);
-	curl_setopt($curl,CURLOPT_FOLLOWLOCATION,true);
-	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false );
-	curl_setopt($curl, CURLOPT_AUTOREFERER, true );
-	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true );
+	curl_setopt($curl, CURLOPT_URL, $BIVES);
+	curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($curl, CURLOPT_AUTOREFERER, true);
+	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($curl, CURLOPT_USERAGENT, "stats website diff generator");
 	curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
 	curl_setopt($curl, CURLOPT_POST, true);
 	curl_setopt($curl, CURLOPT_POSTFIELDS, $bivesJob);
-	
-	
+
+
 	$headers = array();
 	$headers[] = 'Content-Type: application/json';
 	curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-	
+
 	$result = curl_exec($curl);
 	if ($result === false) {
 		throw new Exception(curl_error($curl), curl_errno($curl));
 	}
 	curl_close($curl);
-		
+
 	if ($saveMerge) {
 		$dir = $storage . '/' . $job;
 		$decodeResult = json_decode($result)->merge;
