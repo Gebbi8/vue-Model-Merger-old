@@ -1,5 +1,5 @@
 <?php
-echo "check for update: 2";
+//echo "check for update: 2";
 // ini_set('display_errors', 1);
 // ini_set('display_startup_errors', 1);
 // error_reporting(E_ALL);
@@ -55,8 +55,8 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 
 	callBives($bivesJob, $saveMerge, $BIVES, $storage, $rnd);
 
-	echo "mkdir echo: " . file_exists($dir);
-	echo "testesttesttest" . $rnd;
+	//echo "mkdir echo: " . file_exists($dir);
+	echo $rnd;
 } else if (
 	isset($job) && !empty($job) && isset($getFile) && !empty($getFile) &&
 	!preg_match('[^A-Za-z0-9]', $job) &&
