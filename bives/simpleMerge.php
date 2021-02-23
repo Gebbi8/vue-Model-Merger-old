@@ -116,7 +116,7 @@ function callBives($bivesJob, $saveMerge, $BIVES, $storage, $job)
 	if ($saveMerge) {
 		$dir = $storage . '/' . $job;
 		$decodeResult = json_decode($result)->merge;
-		file_put_contents($dir . "/mergedModel", $decodeResult);
+		echo "resutlt if out contents: " . file_put_contents($dir . "/mergedModel", $decodeResult);
 	}
 
 
