@@ -66,12 +66,17 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 
 	$filename = $storage . '/' . $job . '/' . $getFile;
 
-	$openFile = fopen($filename, "r");
-	$readFile = fread($openFile, filesize($filename));
-	fclose($openFile);
+	if(!file_exists($filename)) echo "the file does not exist: " . $filename;
+	else {
+		$openFile = fopen($filename, "r");
+		$readFile = fread($openFile, filesize($filename));
+		fclose($openFile);
+	
+	
+		echo $readFile;
+	}
 
 
-	echo $readFile;
 } else {
 	if(isset($job) && empty($job)) echo "\n Job set but empty \n";
 	if (!file_exists($storage) ) echo "STORAGE does not exist " . $storage;
