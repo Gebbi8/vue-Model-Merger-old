@@ -165,6 +165,7 @@ export default {
       const axios = require("axios");
 
       if (this.job != "") alert("jobisSet");
+      else alert("job:  " + this.job);
       axios
         .post("/bives/simpleMerge.php", formData, {
           headers: {
