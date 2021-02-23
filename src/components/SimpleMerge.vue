@@ -140,28 +140,6 @@ export default {
     },
 
     submitFiles() {
-      /*
-          Initialize the form data
-        */
-      let formData = new FormData();
-
-      /*
-          Iteate over any file sent over appending the files
-          to the form data.
-        */
-      let file = this.file1;
-      console.log(file);
-      formData.append("file1", file);
-
-      file = this.file2;
-      console.log(file);
-
-      formData.append("file2", file);
-      console.log(formData);
-
-      /*
-          Make the request to the POST /multiple-files URL
-        */
       const axios = require("axios");
 
       if (this.job != "unset") {
@@ -179,6 +157,29 @@ export default {
             this.forceFileDownload(response);
           });
       } else {
+        /*
+          Initialize the form data
+        */
+        let formData = new FormData();
+
+        /*
+          Iteate over any file sent over appending the files
+          to the form data.
+        */
+        let file = this.file1;
+        console.log(file);
+        formData.append("file1", file);
+
+        file = this.file2;
+        console.log(file);
+
+        formData.append("file2", file);
+        console.log(formData);
+
+        /*
+          Make the request to the POST /multiple-files URL
+        */
+
         alert("no job");
         axios
           .post("/bives/simpleMerge.php", formData, {
