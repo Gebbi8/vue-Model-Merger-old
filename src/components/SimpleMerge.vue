@@ -153,7 +153,7 @@ export default {
             params: paramsBuild,
           })
           .then((response) => {
-            console.log("!!!!!!!!!!" + response.data);
+            console.log("Response of get File: \n" + response.data);
             this.forceFileDownload(response);
           });
       } else {
