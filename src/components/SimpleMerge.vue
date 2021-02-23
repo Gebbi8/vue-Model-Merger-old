@@ -78,7 +78,7 @@ export default {
   data() {
     return {
       job: this.$route.query.jobID,
-      debug: false,
+      debug: true,
       goBackexsists: this.$route.query.goBack,
       goBack: decodeURIComponent(this.$route.query.goBack),
       file1: "",
