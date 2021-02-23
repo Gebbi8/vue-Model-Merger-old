@@ -51,6 +51,7 @@
       <p>set debug to false to disable the dev output</p>
       <p>jobID: {{ $route.query.jobID }}</p>
       <p>goBack: {{ $route.query.goBack }}</p>
+      <p>devCounter: 1</p>
     </div>
     <button
       v-if="!goBackexsists"
@@ -110,6 +111,7 @@ export default {
       var file2;
 
       if (isExternal) {
+        consol.log("external request " + this.job);
         file1 = "/tmp/mergestorage/" + this.job + "/f1";
         file2 = "/tmp/mergestorage/" + this.job + "/f2";
       } else {
