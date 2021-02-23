@@ -178,34 +178,36 @@ export default {
             console.log("!!!!!!!!!!" + response.data);
             this.forceFileDownload(response);
           });
-      } else alert("no job");
-      axios
-        .post("/bives/simpleMerge.php", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((response) => {
-          console.log(response);
-          console.log("ID = " + response.data);
-          this.job = response.data;
+      } else {
+        alert("no job");
+        axios
+          .post("/bives/simpleMerge.php", formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          })
+          .then((response) => {
+            console.log(response);
+            console.log("ID = " + response.data);
+            this.job = response.data;
 
-          const paramsBuild = new URLSearchParams();
-          paramsBuild.append("jobID", this.job);
-          paramsBuild.append("getFile", "mergedModel");
+            const paramsBuild = new URLSearchParams();
+            paramsBuild.append("jobID", this.job);
+            paramsBuild.append("getFile", "mergedModel");
 
-          axios
-            .get("/bives/simpleMerge.php", {
-              params: paramsBuild,
-            })
-            .then((response) => {
-              console.log("!!!!!!!!!!" + response.data);
-              this.forceFileDownload(response);
-            });
-        })
-        .catch(function (e) {
-          console.log("FAILURE!!" + e);
-        });
+            axios
+              .get("/bives/simpleMerge.php", {
+                params: paramsBuild,
+              })
+              .then((response) => {
+                console.log("!!!!!!!!!!" + response.data);
+                this.forceFileDownload(response);
+              });
+          })
+          .catch(function (e) {
+            console.log("FAILURE!!" + e);
+          });
+      }
     },
   },
 };
