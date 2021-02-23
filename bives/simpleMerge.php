@@ -68,6 +68,7 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 
 	if(!file_exists($filename)) echo "the file does not exist: " . $filename;
 	else {
+		echo "THE FILE EXISTS";
 		$openFile = fopen($filename, "r");
 		$readFile = fread($openFile, filesize($filename));
 		fclose($openFile);
