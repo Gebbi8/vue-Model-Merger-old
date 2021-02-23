@@ -51,7 +51,7 @@
       <p>set debug to false to disable the dev output</p>
       <p>jobID: {{ $route.query.jobID }}</p>
       <p>goBack: {{ $route.query.goBack }}</p>
-      <p>devCounter: 2</p>
+      <p>devCounter: 3</p>
     </div>
     <button
       v-if="!goBackexsists"
