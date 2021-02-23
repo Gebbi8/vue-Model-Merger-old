@@ -115,6 +115,7 @@ export default {
         file1 = "/tmp/mergestorage/" + this.job + "/f1";
         file2 = "/tmp/mergestorage/" + this.job + "/f2";
       } else {
+        console.log("internal request ");
         file1 = this.file1;
         file2 = this.file2;
       }
