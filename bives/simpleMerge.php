@@ -8,7 +8,6 @@ error_reporting(E_ALL ^ E_WARNING);
 $BIVES = "https://bives.bio.informatik.uni-rostock.de/";
 $storage = '/tmp/mergestorage';
 $f1 = $_FILES['file1'];
-if(empty($f1)) echo "ERROR: File 1 is empty";
 $f2 = $_FILES['file2'];
 $job = $_GET['jobID'];
 $getFile = $_GET['getFile'];
