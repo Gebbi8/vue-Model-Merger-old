@@ -88,10 +88,10 @@ export default {
   computed: {},
   methods: {
     download: function () {
-      this.produceSimpleMerge();
+      this.produceSimpleMerge(false);
     },
     goBackToOrigin: function () {
-      this.produceSimpleMerge();
+      this.produceSimpleMerge(true);
 
       var regex = /.+?(?=merge_versions|[?#])/;
       alert(this.goBack);
@@ -105,12 +105,17 @@ export default {
       alert(backRoute);
       window.open(backRoute, "_self");
     },
-    produceSimpleMerge: function () {
-      //var file1 = "/tmp/mergestorage/" + this.job + "/f1";
-      //var file2 = "/tmp/mergestorage/" + this.job + "/f2";
+    produceSimpleMerge: function (isExternal) {
+      var file1;
+      var file2;
 
-      var file1 = this.file1;
-      var file2 = this.file2;
+      if (isExternal) {
+        file1 = "/tmp/mergestorage/" + this.job + "/f1";
+        file2 = "/tmp/mergestorage/" + this.job + "/f2";
+      } else {
+        file1 = this.file1;
+        file2 = this.file2;
+      }
 
       this.submitFiles();
     },
