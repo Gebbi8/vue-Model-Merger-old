@@ -154,6 +154,10 @@ export default {
       formData.append("file1", file);
 
       file = this.file2;
+      console.log(file);
+
+      alert("s");
+
       formData.append("file2", file);
       console.log(formData);
 
