@@ -111,7 +111,7 @@ export default {
       var file2;
 
       if (isExternal) {
-        consol.log("external request " + this.job);
+        console.log("external request " + this.job);
         file1 = "/tmp/mergestorage/" + this.job + "/f1";
         file2 = "/tmp/mergestorage/" + this.job + "/f2";
       } else {
