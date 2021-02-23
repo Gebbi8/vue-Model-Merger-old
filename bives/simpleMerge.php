@@ -64,6 +64,8 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 	header("Content-Length:" . filesize($storage . '/' . $job . '/' . $getFile));
 	header("Content-Disposition: attachment; filename=mergedModel.xml");
 
+	echo "\n\nGenau HIER!\n\n\n"
+
 	$filename = $storage . '/' . $job . '/' . $getFile;
 
 	if(!file_exists($filename)) echo "the file does not exist: " . $filename;
