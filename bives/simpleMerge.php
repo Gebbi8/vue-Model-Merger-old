@@ -1,5 +1,5 @@
 <?php
-echo "check for update: Version Für Martin";
+//echo "check for update: Version Für Martin";
 // ini_set('display_errors', 1);
 // ini_set('display_startup_errors', 1);
 // error_reporting(E_ALL);
@@ -85,7 +85,7 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 	if (!file_exists($storage) ) echo "STORAGE does not exist " . $storage;
 	if (!file_exists($storage . '/' . $job) ) echo "\nID does not exist " . $storage . '/' . $job . "\n";
 	if (!file_exists($storage . '/' . $job . '/' . $getFile)) echo "FILE DOESNT EXIST " . $storage . '/' . $job . '/' . $getFile;
-	echo "\n\nFAILED! ---> getFile:" . $getFile . ", job: " . $job;
+	echo "\n\nFAILED --2-> getFile:" . $getFile . ", job: " . $job;
 }
 
 function callBives($bivesJob, $saveMerge, $BIVES, $storage, $job)
@@ -116,7 +116,7 @@ function callBives($bivesJob, $saveMerge, $BIVES, $storage, $job)
 	if ($saveMerge) {
 		$dir = $storage . '/' . $job;
 		$decodeResult = json_decode($result)->merge;
-		echo "resutlt if out contents: " . file_put_contents($dir . "/mergedModel", $decodeResult);
+		file_put_contents($dir . "/mergedModel", $decodeResult);
 	}
 
 
