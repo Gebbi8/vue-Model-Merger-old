@@ -78,7 +78,7 @@
 export default {
   data() {
     return {
-      job: this.$route.query.jobID,
+      job: this.$route.query.jobID || "unset",
       debug: true,
       goBackexsists: this.$route.query.goBack,
       goBack: decodeURIComponent(this.$route.query.goBack),
@@ -164,8 +164,21 @@ export default {
         */
       const axios = require("axios");
 
-      if (this.job != "") alert("jobisSet");
-      else alert("job:  " + this.job);
+      if (this.job != "unset") {
+        alert("job is set");
+        const paramsBuild = new URLSearchParams();
+        paramsBuild.append("jobID", this.job);
+        paramsBuild.append("getFile", "mergedModel");
+
+        axios
+          .get("/bives/simpleMerge.php", {
+            params: paramsBuild,
+          })
+          .then((response) => {
+            console.log("!!!!!!!!!!" + response.data);
+            this.forceFileDownload(response);
+          });
+      } else alert("no job");
       axios
         .post("/bives/simpleMerge.php", formData, {
           headers: {
