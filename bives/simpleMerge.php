@@ -58,11 +58,7 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 
 	//echo "mkdir echo: " . file_exists($dir);
 	echo $rnd;
-} else if (
-	isset($job) && !empty($job) && isset($getFile) && !empty($getFile) &&
-	!preg_match('[^A-Za-z0-9]', $job) &&
-	file_exists($storage . '/' . $job . '/' . $getFile)
-) {
+} else if (isset($job) && !empty($job) && isset($getFile) && !empty($getFile) && !preg_match('[^A-Za-z0-9]', $job) && file_exists($storage . '/' . $job . '/' . $getFile)) {
 	header($_SERVER["SERVER_PROTOCOL"] . " 200 OK");
 	header("Content-Type: file/xml");
 	header("Content-Transfer-Encoding: Binary");
@@ -78,10 +74,11 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 
 	echo $readFile;
 } else {
+	if(isset($job) && empty($job)) echo "\n Job set but empty \n";
 	if (!file_exists($storage) ) echo "STORAGE does not exist " . $storage;
 	if (!file_exists($storage . '/' . $job) ) echo "\nID does not exist " . $storage . '/' . $job . "\n";
 	if (!file_exists($storage . '/' . $job . '/' . $getFile)) echo "FILE DOESNT EXIST " . $storage . '/' . $job . '/' . $getFile;
-	echo "\n... FAILED! ---> getFile:" . $getFile . ", job: " . $job;
+	echo "\n\nFAILED! ---> getFile:" . $getFile . ", job: " . $job;
 }
 
 function callBives($bivesJob, $saveMerge, $BIVES, $storage, $job)
