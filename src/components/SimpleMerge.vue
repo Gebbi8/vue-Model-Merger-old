@@ -49,9 +49,9 @@
     <div id="debugging" class="bg-warning" v-if="debug">
       <h4>Development out</h4>
       <p>set debug to false to disable the dev output</p>
-      <p>jobID: {{ $route.query.jobID }}</p>
+      <p>jobID: {{ this.job }}</p>
       <p>goBack: {{ $route.query.goBack }}</p>
-      <p>devCounter: 3</p>
+      <p>devCounter: 4</p>
     </div>
     <button
       v-if="!goBackexsists"
@@ -78,7 +78,7 @@
 export default {
   data() {
     return {
-      job: this.$route.query.jobID || "unset",
+      job: this.$route.query.jobID,
       debug: true,
       goBackexsists: this.$route.query.goBack,
       goBack: decodeURIComponent(this.$route.query.goBack),
