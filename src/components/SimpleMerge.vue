@@ -51,16 +51,16 @@
       <p>set debug to false to disable the dev output</p>
       <p>jobID: {{ this.job }}</p>
       <p>goBack: {{ $route.query.goBack }}</p>
-      <p>devCounter: 6</p>
+      <p>devCounter: 8</p>
     </div>
     <button
       v-if="!goBackexsists"
-      ref="download"
-      v-on:click="download"
+      ref="compute merge"
+      v-on:click="computeMerge"
       type="button"
       class="btn btn-primary btn-lg"
     >
-      Download SBML
+      Compute Merge
     </button>
     <button
       v-else
@@ -70,6 +70,15 @@
       class="btn btn-primary btn-lg"
     >
       Return to Starting Page
+    </button>
+    <button
+      v-if="true"
+      ref="copy"
+      v-on:click="goBackToOrigin"
+      type="button"
+      class="btn btn-primary btn-lg"
+    >
+      Copy URL to merged model
     </button>
   </div>
 </template>
@@ -89,13 +98,81 @@ export default {
   computed: {},
   methods: {
     download: function () {
+      const axios = require("axios");
+      //alert("job is set");
+      const paramsBuild = new URLSearchParams();
+      paramsBuild.append("jobID", this.job);
+      paramsBuild.append("getFile", "mergedModel");
+
+      axios
+        .get("/bives/simpleMerge.php", {
+          params: paramsBuild,
+        })
+        .then((response) => {
+          console.log("Response of get File: \n" + response.data);
+          this.forceFileDownload(response);
+        });
       this.produceSimpleMerge(false);
+    },
+    computeMerge: function () {
+      const axios = require("axios");
+      /*
+          Initialize the form data
+        */
+      let formData = new FormData();
+
+      /*
+          Iteate over any file sent over appending the files
+          to the form data.
+        */
+      let file = this.file1;
+      console.log(file);
+      formData.append("file1", file);
+
+      file = this.file2;
+      console.log(file);
+
+      formData.append("file2", file);
+      console.log(formData);
+
+      /*
+          Make the request to the POST /multiple-files URL
+        */
+
+      console.log("sending files to bives for merge. returning Job ID");
+      axios
+        .post("/bives/simpleMerge.php", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          console.log(response);
+          console.log("ID = " + response.data);
+          this.job = response.data;
+
+          const paramsBuild = new URLSearchParams();
+          paramsBuild.append("jobID", this.job);
+          paramsBuild.append("getFile", "mergedModel");
+
+          axios
+            .get("/bives/simpleMerge.php", {
+              params: paramsBuild,
+            })
+            .then((response) => {
+              console.log("Response: " + response.data);
+              //this.forceFileDownload(response);
+              this.job = response.data;
+            });
+        })
+        .catch(function (e) {
+          console.log("FAILURE!!" + e);
+        });
     },
     goBackToOrigin: function () {
       this.produceSimpleMerge(true);
 
       var regex = /.+?(?=merge_versions|[?#])/;
-      alert(this.goBack);
       var backRoute = regex.exec(this.goBack);
       backRoute =
         backRoute +
@@ -137,78 +214,6 @@ export default {
     handleFileUpload2() {
       this.file2 = this.$refs.file2.files[0];
       console.log(this.$refs.file2.files[0]);
-    },
-
-    submitFiles() {
-      const axios = require("axios");
-
-      if (this.job) {
-        alert("job is set");
-        const paramsBuild = new URLSearchParams();
-        paramsBuild.append("jobID", this.job);
-        paramsBuild.append("getFile", "mergedModel");
-
-        axios
-          .get("/bives/simpleMerge.php", {
-            params: paramsBuild,
-          })
-          .then((response) => {
-            console.log("Response of get File: \n" + response.data);
-            this.forceFileDownload(response);
-          });
-      } else {
-        /*
-          Initialize the form data
-        */
-        let formData = new FormData();
-
-        /*
-          Iteate over any file sent over appending the files
-          to the form data.
-        */
-        let file = this.file1;
-        console.log(file);
-        formData.append("file1", file);
-
-        file = this.file2;
-        console.log(file);
-
-        formData.append("file2", file);
-        console.log(formData);
-
-        /*
-          Make the request to the POST /multiple-files URL
-        */
-
-        alert("no job");
-        axios
-          .post("/bives/simpleMerge.php", formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          })
-          .then((response) => {
-            console.log(response);
-            console.log("ID = " + response.data);
-            this.job = response.data;
-
-            const paramsBuild = new URLSearchParams();
-            paramsBuild.append("jobID", this.job);
-            paramsBuild.append("getFile", "mergedModel");
-
-            axios
-              .get("/bives/simpleMerge.php", {
-                params: paramsBuild,
-              })
-              .then((response) => {
-                console.log("Response: " + response.data);
-                this.forceFileDownload(response);
-              });
-          })
-          .catch(function (e) {
-            console.log("FAILURE!!" + e);
-          });
-      }
     },
   },
 };
