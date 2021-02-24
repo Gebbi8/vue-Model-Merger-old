@@ -82,7 +82,7 @@ if (isset($f1) && !empty($f2) && isset($f2) && !empty($f2) && !isset($job)) {
 	if(isset($job) && empty($job)) echo "\n Job set but empty \n";
 	if (!file_exists($storage) ) echo "STORAGE does not exist " . $storage;
 	if (!file_exists($storage . '/' . $job) ) echo "\nID does not exist " . $storage . '/' . $job . "\n";
-	if (!file_exists($storage . '/' . $job . '/' . $getFile)) echo "FILE DOESNT EXIST " . $storage . '/' . $job . '/' . $getFile;
+	if (!file_exists($storage . '/' . $job . '/' . $getFile)) echo "FILE doesnt exist " . $storage . '/' . $job . '/' . $getFile;
 	echo "\n\nFAILED --2-> getFile:" . $getFile . ", job: " . $job;
 }
 
