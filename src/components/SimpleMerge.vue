@@ -142,7 +142,7 @@ export default {
     submitFiles() {
       const axios = require("axios");
 
-      if (this.job != "unset") {
+      if (this.job) {
         alert("job is set");
         const paramsBuild = new URLSearchParams();
         paramsBuild.append("jobID", this.job);
