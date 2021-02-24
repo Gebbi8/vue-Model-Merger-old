@@ -151,10 +151,11 @@ export default {
           console.log("ID = " + response.data);
           this.job = response.data;
 
+          /* //splitting up the method into something mor modular
           const paramsBuild = new URLSearchParams();
           paramsBuild.append("jobID", this.job);
           paramsBuild.append("getFile", "mergedModel");
-
+          alert("check");
           axios
             .get("/bives/simpleMerge.php", {
               params: paramsBuild,
@@ -163,13 +164,15 @@ export default {
               console.log("Response: " + response.data);
               //this.forceFileDownload(response);
               this.job = response.data;
-            });
+            }); */
         })
         .catch(function (e) {
           console.log("FAILURE!!" + e);
         });
     },
     goBackToOrigin: function () {
+      console.log("calling goBackToOrigin");
+
       this.produceSimpleMerge(true);
 
       var regex = /.+?(?=merge_versions|[?#])/;
