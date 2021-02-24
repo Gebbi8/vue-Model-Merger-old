@@ -201,7 +201,7 @@ export default {
                 params: paramsBuild,
               })
               .then((response) => {
-                console.log("Response: " + response);
+                console.log("Response: " + response.data);
                 this.forceFileDownload(response);
               });
           })
