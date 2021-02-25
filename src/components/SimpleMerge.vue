@@ -74,7 +74,7 @@
     <button
       v-if="true"
       ref="copy"
-      v-on:click="goBackToOrigin"
+      v-on:click="copyURL"
       type="button"
       class="btn btn-primary btn-lg"
     >
@@ -126,18 +126,13 @@ export default {
           to the form data.
         */
       let file = this.file1;
-      console.log(file);
       formData.append("file1", file);
-
       file = this.file2;
-      console.log(file);
-
       formData.append("file2", file);
-      console.log(formData);
 
       /*
-          Make the request to the POST /multiple-files URL
-        */
+        Make the request to the POST /multiple-files URL
+      */
 
       console.log("sending files to bives for merge. returning Job ID");
       axios
@@ -169,6 +164,35 @@ export default {
         .catch(function (e) {
           console.log("FAILURE!!" + e);
         });
+    },
+    copyURL: function () {
+      // Create new element
+      var el = document.createElement("textarea");
+      // Set value (string to be copied)
+      var baseURL =
+        "https://merge-proto.bio.informatik.uni-rostock.de/bives/simpleMerge.php?getFile=";
+
+      el.value = baseURL + "/tmp/mergestorage/" + this.job + "/mergedModel";
+
+      // Set non-editable to avoid focus and move outside of view
+      el.setAttribute("readonly", "");
+      el.style = { position: "absolute", left: "-9999px" };
+      document.body.appendChild(el);
+      // Select text inside element
+      el.select();
+      // Copy text to clipboard
+      document.execCommand("copy");
+      // Remove temporary element
+      document.body.removeChild(el);
+
+      /* Get the text field */
+
+      /*       /* Select the text field */
+      //copyText.select();
+      //copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+      /* Copy the text inside the text field 
+      document.execCommand("copy"); */
     },
     goBackToOrigin: function () {
       console.log("calling goBackToOrigin");
