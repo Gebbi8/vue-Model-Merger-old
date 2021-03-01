@@ -54,17 +54,7 @@
           </div>
         </div>
       </div>
-      <div v-else>
-        <button
-          v-if="job"
-          ref="download"
-          v-on:click="downloadMerge"
-          type="button"
-          class="btn btn-primary btn-lg"
-        >
-          Compute Merge
-        </button>
-      </div>
+      <div v-else></div>
       <button
         v-if="!goBackexsists"
         ref="compute merge"
@@ -84,7 +74,16 @@
         Return to Starting Page
       </button>
       <button
-        v-if="true"
+        v-if="job"
+        ref="download"
+        v-on:click="downloadMerge"
+        type="button"
+        class="btn btn-primary btn-lg"
+      >
+        Compute Merge
+      </button>
+      <button
+        v-if="job"
         ref="copy"
         v-on:click="copyURL"
         type="button"
