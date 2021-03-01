@@ -66,7 +66,7 @@
       >
         Compute Merge
       </button>
-      <button
+      <!--       <button
         v-else
         ref="goBackBtn"
         v-on:click="goBackToOrigin"
@@ -74,7 +74,7 @@
         class="btn btn-primary btn-lg"
       >
         Return to Starting Page
-      </button>
+      </button> -->
       <button
         v-if="job"
         ref="download"
