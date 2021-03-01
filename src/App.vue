@@ -17,15 +17,18 @@
         </div>
       </div>
     </div>
-    <div class="row custom-color-2">
+    <div class="row custom-color-2" id="intro">
       <div class="container">
         <div class="row justify-content-center">
           <p class="col-8">
-            Model development is often a non-linear process and happens on
-            different levels of granularity. A model can focus on a few
-            molecular interactions, specifc diseases, systems ore even the whole
-            body. A lot literature and experimental based information has to be
-            gathered to build a model.
+            Model development is often a non-linear and decentralised process.
+            It requries time consuming effort to gather the necessary
+            information from literature, experimental data and databases. The
+            information are either collected in tables or directly put into a
+            model using common tools (e. g. CellDesigner). Subseqeuntly, the
+            collaborative nature of modelling requires one partner to collect
+            and combine the gathered information. Our merging tool aims to ease
+            this process by enabling the combination of two model versions.
           </p>
         </div>
       </div>
@@ -87,18 +90,22 @@ export default {
 
 <style scoped>
 .custom-color-1 {
-  background-color: #3aafa9;
+  background-color: #365b9e;
   color: #feffff;
 }
 
 .custom-color-2 {
-  background-color: #3aafa9;
+  background-color: #e5e5e5;
   color: #17252a;
 }
 
 .custom-color-3 {
   background-color: white;
   color: #17252a;
+}
+
+#intro {
+  padding-top: 1rem;
 }
 
 #center {
