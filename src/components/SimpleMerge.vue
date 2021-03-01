@@ -76,11 +76,11 @@
       <button
         v-if="job"
         ref="download"
-        v-on:click="downloadMerge"
+        v-on:click="download"
         type="button"
         class="btn btn-primary btn-lg"
       >
-        Compute Merge
+        Download
       </button>
       <button
         v-if="job"
@@ -173,7 +173,7 @@ export default {
           console.log("Response of get File: \n" + response.data);
           this.forceFileDownload(response);
         });
-      this.produceSimpleMerge(false);
+      //this.produceSimpleMerge(false);
     },
     downloadMerge: function () {},
     computeMerge: function () {
