@@ -14,9 +14,11 @@
       <h5>Web interface</h5>
       <p>
         You can select two local model files with the provided interface. The
-        files are send to out BiVeS server+
+        files are send to out BiVeS server to the BiVeS service with "compute
+        merge". You can afterwards download the merged model and share a link to
+        it.
       </p>
-      <div v-if="!job">
+      <div>
         <div id="fileUpload" class="row custom-color-3">
           <div id="uploadFirst" class="col-sm-6 custom-color-1">
             <div class="custom-file">
@@ -54,9 +56,9 @@
           </div>
         </div>
       </div>
-      <div v-else></div>
+      <div></div>
       <button
-        v-if="!goBackexsists"
+        v-if="!job"
         ref="compute merge"
         v-on:click="computeMerge"
         type="button"
