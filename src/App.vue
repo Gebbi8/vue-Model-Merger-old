@@ -114,6 +114,7 @@ export default {
 
 #head {
   padding-top: 1em;
+  padding-bottom: 1rem;
 }
 
 #foot {

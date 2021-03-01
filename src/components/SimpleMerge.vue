@@ -54,6 +54,17 @@
           </div>
         </div>
       </div>
+      <div v-else>
+        <button
+          v-if="job"
+          ref="download"
+          v-on:click="downloadMerge"
+          type="button"
+          class="btn btn-primary btn-lg"
+        >
+          Compute Merge
+        </button>
+      </div>
       <button
         v-if="!goBackexsists"
         ref="compute merge"
@@ -141,6 +152,7 @@ export default {
       debug: false,
       goBackexsists: this.$route.query.goBack,
       goBack: decodeURIComponent(this.$route.query.goBack),
+      merged: false,
       file1: "",
       file2: "",
     };
@@ -164,6 +176,7 @@ export default {
         });
       this.produceSimpleMerge(false);
     },
+    downloadMerge: function () {},
     computeMerge: function () {
       const axios = require("axios");
       /*
